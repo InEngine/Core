@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Blocks\Block;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Pages\Page;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,9 +19,5 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-
-        Page::factory(5)
-            ->has(Block::factory()->count(3), 'blocks')
-            ->create();
     }
-}    
+}
