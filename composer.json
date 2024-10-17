@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "inengine/core",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "InEngine Core based on the Laravel framework and InEngine Modulus",
+    "keywords": ["laravel", "framework", "application"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -67,6 +67,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
