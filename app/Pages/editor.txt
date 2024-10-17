@@ -1,0 +1,37 @@
+Livewire block drag and drop page editor
+
+Some blocks should be able to nest other blocks
+
+Blocks are editable, but save to html blocks in db for render
+Blocks have a heirarchy 
+
+
+Blocks:
+    body
+    h1-h4?
+    paragraph
+    quote
+    block-quote
+    image/media
+    list
+    divider - horizontal & vertical
+    section - grid and flex
+    icon/svg
+    card
+    button/link
+    span?
+    em?
+    style - sub-block
+    article
+
+
+Advanced Blocks:
+    form
+    image slideshow
+    parallax
+    animation
+    hero
+    call to action
+    gallary
+    chart
+    dynamic content
