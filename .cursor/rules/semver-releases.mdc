@@ -1,0 +1,12 @@
+---
+description: Semantic versioning and automated releases on merge to main/master
+alwaysApply: true
+---
+
+# SemVer and releases (InEngine Core)
+
+- This repository is **semantically versioned** (`MAJOR.MINOR.PATCH`). Current version lives in **`composer.json`** (`version`) and Git tags (`vX.Y.Z`).
+- When **`dev` is successfully merged into `main`/`master`**, CI bumps the version, creates a **GitHub Release** with notes, and updates **`CHANGELOG.md`**.
+- Prefer **Conventional Commits** (`feat:`, `fix:`, `feat!:` / `BREAKING CHANGE:`) so release notes and bump type (patch/minor/major) stay accurate.
+- Do **not** hand-edit the version on feature branches unless the user explicitly asks; let the release workflow own bumps on the default branch.
+- Agents: mention the upcoming release impact when finishing merge-ready work (e.g. “this is a minor — new module contract”).

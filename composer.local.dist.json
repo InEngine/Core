@@ -1,0 +1,12 @@
+{
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../Modules/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "require": {}
+}

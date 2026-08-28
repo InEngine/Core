@@ -1,0 +1,122 @@
+# When dev is merged into master/main (push to those branches), bump semver,
+# update composer.json version, tag, and create a GitHub Release with notes.
+
+name: Release on merge
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Skip if the push is already a release tag commit from this workflow
+    if: ${{ !contains(github.event.head_commit.message, 'chore(release):') }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+
+      - name: Determine bump from commits since last tag
+        id: bump
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            RANGE=""
+            CURRENT="0.1.0"
+          else
+            RANGE="${LAST_TAG}..HEAD"
+            CURRENT="${LAST_TAG#v}"
+          fi
+
+          COMMITS=$(git log --pretty=%s ${RANGE} 2>/dev/null || true)
+          BUMP="patch"
+          if echo "$COMMITS" | grep -Eiq '^(feat|fix)(\(.+\))?!:|BREAKING CHANGE'; then
+            BUMP="major"
+          elif echo "$COMMITS" | grep -Eiq '^feat(\(.+\))?:'; then
+            BUMP="minor"
+          fi
+
+          IFS=. read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          MAJOR=${MAJOR:-0}
+          MINOR=${MINOR:-1}
+          PATCH=${PATCH:-0}
+          case "$BUMP" in
+            major) MAJOR=$((MAJOR+1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR+1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH+1)) ;;
+          esac
+          NEXT="${MAJOR}.${MINOR}.${PATCH}"
+          echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
+          echo "version=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "tag=v${NEXT}" >> "$GITHUB_OUTPUT"
+          echo "Resolved next version: v${NEXT} ($BUMP)"
+
+      - name: Build release notes
+        id: notes
+        run: |
+          set -euo pipefail
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            NOTES=$(git log --pretty=format:'- %s (%h)' --no-merges | head -50)
+          else
+            NOTES=$(git log "${LAST_TAG}..HEAD" --pretty=format:'- %s (%h)' --no-merges)
+          fi
+          {
+            echo "body<<EOF"
+            echo "## Changes"
+            echo ""
+            echo "$NOTES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Bump composer.json version
+        run: |
+          php -r '
+            $f = "composer.json";
+            $j = json_decode(file_get_contents($f), true);
+            $j["version"] = getenv("VERSION");
+            file_put_contents($f, json_encode($j, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");
+          '
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+
+      - name: Commit version bump
+        run: |
+          git config user.name "James Johnson"
+          git config user.email "james.johnson@excellentingenuity.com"
+          git add composer.json
+          git commit -m "chore(release): v${{ steps.bump.outputs.version }}" || echo "No version file change"
+          git push
+          git tag "${{ steps.bump.outputs.tag }}"
+          git push origin "${{ steps.bump.outputs.tag }}"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.bump.outputs.tag }}
+          name: ${{ steps.bump.outputs.tag }}
+          body: ${{ steps.notes.outputs.body }}
+          generate_release_notes: true

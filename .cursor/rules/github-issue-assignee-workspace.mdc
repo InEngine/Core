@@ -1,0 +1,16 @@
+---
+description: Assign new GitHub issues to the workspace owner unless overridden
+alwaysApply: true
+---
+
+# GitHub issue assignee (PHPStorm / monorepo workspace)
+
+When creating issues with **`gh issue create`** for **any** repository tied to this workspace (including **`excellentingenuity/LegacyTradeCollege`**, **`InEngine/TableUI`**, **`excellentingenuity/ltc-wordpress-plugins`**, or any other repo the user names under this PHPStorm project), **always** include:
+
+```bash
+--assignee excellentingenuity
+```
+
+unless the user **explicitly** asks for a different assignee or says **not** to assign.
+
+If **`gh issue create`** fails on assignee (permissions, org SSO, or user not in assignable list), report the error and suggest checking org membership or `gh auth refresh` as appropriate.
