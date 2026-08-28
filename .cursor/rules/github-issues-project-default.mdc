@@ -8,7 +8,11 @@ alwaysApply: true
 When creating issues for this repository:
 
 1. Use `gh issue create` in **`InEngine/Core`** with **`--assignee excellentingenuity`** unless the user specifies otherwise.
-2. Link related work to Modulus / module packages when relevant (`InEngine/Modulus`, sibling module repos).
-3. Keep issue bodies actionable: goal, acceptance criteria, and module boundary (Core vs module).
+2. Add the issue to the **InEngine** project (`InEngine` org project **`#2`**) using `gh project item-add`.
+3. Default the issue to **Backlog** status in that project.
+4. Link related work to Modulus / module packages when relevant (`InEngine/Modulus`, sibling module repos).
+5. Keep issue bodies actionable: goal, acceptance criteria, and module boundary (Core vs module).
 
-If `gh` is not authenticated, ask the user to run `gh auth login` before creating issues.
+If `gh` is not authenticated or project scopes fail, ask the user to run:
+
+`gh auth refresh -s read:project -s project`
