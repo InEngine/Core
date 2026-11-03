@@ -14,6 +14,7 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 | **Calendar** | `…/InEngine/Modules/Calendar` | `../Modules/Calendar` | https://github.com/InEngine/Calendar |
 | **GoogleCalendarAdapter** | `…/InEngine/Modules/GoogleCalendarAdapter` | `../Modules/GoogleCalendarAdapter` | https://github.com/InEngine/GoogleCalendarAdapter |
 | **Alert** | `…/InEngine/Modules/Alert` | `../Modules/Alert` | https://github.com/InEngine/Alert |
+| **Documentation** | `…/InEngine/Documentation` | `../Documentation` | Design docs (`Plan and Design.md`), logos, premise |
 | **Provost** | `…/Provost/web` | `../../Provost/web` | https://github.com/excellentingenuity/Provost-Web — [Provost #4](https://github.com/users/excellentingenuity/projects/4) |
 | **LTC app (legacy)** | `…/LegacyTradeCollege/app` | `../../LegacyTradeCollege/app` | https://github.com/excellentingenuity/LegacyTradeCollege — [LTC #3](https://github.com/users/excellentingenuity/projects/3) |
 
@@ -21,7 +22,7 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 **Herd:** https://inengine.app  
 
-**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, TableUI.
+**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, TableUI, Documentation.
 
 **Cursor handoffs:** Every level above has `.cursor/SESSION_HANDOFF.md` (+ `session-handoff` rule). When switching roots, read that repo’s handoff.
 
@@ -45,11 +46,41 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 <!-- SESSION_LOG_START -->
 
-### 2026-08-28 — Multi-level handoffs; Modulus L13 wired locally
+### 2026-11-03 — Modulus Steps 1–2 underway
+
+- **Branch (Core):** `dev`
+- **Done:** Modulus StateStore + Step 3 PackageManifest filter; Core `bootstrap/app.php` early installer. Design: module-skeleton required; capability catalog extension (inspect/compat) planned; marketplace separate.
+- **Next:** Commit Step 3; ModuleRepository; handshake; full Core `require` Modulus when ready.
+- **Open questions:** Capability descriptor format; marketplace/catalog package names.
+
+### 2026-09-08 — Session pause (platform design locked)
 
 - **Branch:** `dev`
-- **Done:** Platform GH project; Provost parity issues filed; Modulus L13 PR open; Core local composer requires Modulus `@dev`; Cursor handoffs ensured across Core, modules, and umbrellas.
-- **Next:** Merge Modulus PR #7 when CI green; keep handoffs current when cutting module work.
+- **Done:** Modular platform design agreed and written to Documentation `Plan and Design.md` (steps 0–13) + Modulus `DESIGN.md`. Key decisions: multi-class Modulus + `ModulusStateStore` (atomic file); Core requires Modulus + early boot; enable/disable via Laravel PackageManifest (not composer.json fights); bus + contracts/DTOs; Composer/Packagist/Git submodule; non-destructive disable/uninstall; migrations on enable/upgrade; `modulus:doctor`; SemVer/Pint/Pest/PHPStan everywhere; CLI/API first. Documentation content root in PHPStorm.
+- **Next:** Merge Modulus PR #7 → Step 1–2 (service split + `ModulusStateStore`) → PackageManifest sync → Core `require` Modulus + early boot. See Documentation plan + Modulus DESIGN.md.
+- **Open questions:** State file commit vs gitignore; Packagist client namespace vs separate package; PackageManifest decorate details.
+
+### 2026-09-08 — Expanded platform plan (services, doctor, safety)
+
+
+- **Branch:** `dev`
+- **Done:** Rewrote Documentation `Plan and Design.md` with stepped plan (0–13): multi-class Modulus + **`ModulusStateStore`** (atomic swap); Core **requires Modulus** + early boot; SemVer/Pint/Pest/PHPStan everywhere; enable/disable via **Laravel PackageManifest** (not composer.json fights); bus + **contracts/DTOs**; Composer/Packagist/Git **submodule**; non-destructive disable/uninstall + migrations on enable/upgrade; **`modulus:doctor`**. Modulus `DESIGN.md` synced.
+- **Next:** Merge Modulus PR #7; start Step 1–2 (service split + state store), then Core require + early boot.
+- **Open questions:** State file commit vs gitignore; PackageManifest decorate details; private Packagist auth UX.
+
+### 2026-09-08 — Modulus plan + Documentation in PHPStorm
+
+- **Branch:** `dev`
+- **Done:** Documented modular platform design (CLI/API-first, Spatie skeleton, Laravel providers only, file registry, CLI/UI parity). Modules **register with Modulus** when present; disabled until enabled. Modulus syncs enable/disable through Laravel **package discovery** (`PackageManifest` / packages cache). Docs: Documentation `Plan and Design.md`; Modulus `DESIGN.md` / README / handoff. PHPStorm content root for Documentation.
+- **Next:** Merge Modulus PR #7; implement file store, discovery sync, register-with-Modulus base provider, full modulus:* CLI; create `InEngine/module-skeleton`.
+- **Open questions:** State file path/format; PackageManifest decorate vs rewrite `packages.php`; uninstall always `composer remove` vs forget-only.
+
+### 2026-08-28 — Session pause (platform bootstrap complete)
+
+- **Branch:** `dev`
+- **Done:** Multi-level Cursor handoffs everywhere; Provost parity issues **#1–#32** on project Backlog; Modulus L13 PR #7 + local `@dev` wiring; Core/Provost/Alert/TableUI/Modulus docs pushed.
+- **Next:** Merge Modulus PR #7 when CI green; start Provost Backlog from #1 (Require Modulus).
+- **Open questions:** Core `dev` → `master` via PR (not force-push); Tailwind Plus deferred (Spatie auth).
 
 ### 2026-08-28 — Fresh Laravel 13 Core bootstrap
 
