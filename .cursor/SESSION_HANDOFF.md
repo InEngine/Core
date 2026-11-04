@@ -19,7 +19,7 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 | **Provost** | `…/Provost/web` | `../../Provost/web` | https://github.com/excellentingenuity/Provost-Web — [Provost #4](https://github.com/users/excellentingenuity/projects/4) |
 | **LTC app (legacy)** | `…/LegacyTradeCollege/app` | `../../LegacyTradeCollege/app` | https://github.com/excellentingenuity/LegacyTradeCollege — [LTC #3](https://github.com/users/excellentingenuity/projects/3) |
 
-**Local modules:** `composer.local.dist.json` → `composer.local.json` (gitignored). Paths `../Modules/*` for Herd. Core **requires** `inengine/modulus` `*@dev` via **local path** `../Modules/Modulus` in `composer.json` (no GitHub token); CI checks out Modulus under `Modules/` + path `composer.local.json`.
+**Local modules:** `composer.local.dist.json` → `composer.local.json` (gitignored). Path repos `../Modules/*` live only in composer.local (merge plugin). Core **requires** `inengine/modulus` `*@dev` in `composer.json`; resolution is local-path via composer.local — no GitHub VCS/token. CI writes path `Modules/*` into `composer.local.json`.
 
 **Herd:** https://inengine.app  
 
