@@ -7,8 +7,5 @@
                 "symlink": true
             }
         }
-    ],
-    "require": {
-        "inengine/modulus": "@dev"
-    }
+    ]
 }

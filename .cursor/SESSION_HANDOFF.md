@@ -14,15 +14,16 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 | **Calendar** | `…/InEngine/Modules/Calendar` | `../Modules/Calendar` | https://github.com/InEngine/Calendar |
 | **GoogleCalendarAdapter** | `…/InEngine/Modules/GoogleCalendarAdapter` | `../Modules/GoogleCalendarAdapter` | https://github.com/InEngine/GoogleCalendarAdapter |
 | **Alert** | `…/InEngine/Modules/Alert` | `../Modules/Alert` | https://github.com/InEngine/Alert |
+| **module-skeleton** | `…/InEngine/Modules/module-skeleton` | `../Modules/module-skeleton` | https://github.com/InEngine/module-skeleton — GitHub **template** only (not Packagist); issue #1 Step 4b |
 | **Documentation** | `…/InEngine/Documentation` | `../Documentation` | Design docs (`Plan and Design.md`), logos, premise |
 | **Provost** | `…/Provost/web` | `../../Provost/web` | https://github.com/excellentingenuity/Provost-Web — [Provost #4](https://github.com/users/excellentingenuity/projects/4) |
 | **LTC app (legacy)** | `…/LegacyTradeCollege/app` | `../../LegacyTradeCollege/app` | https://github.com/excellentingenuity/LegacyTradeCollege — [LTC #3](https://github.com/users/excellentingenuity/projects/3) |
 
-**Local modules:** `composer.local.dist.json` → `composer.local.json` (gitignored). Paths `../Modules/*`; currently requires `inengine/modulus` `@dev`.
+**Local modules:** `composer.local.dist.json` → `composer.local.json` (gitignored). Paths `../Modules/*` for Herd. Core **requires** `inengine/modulus` `*@dev` in `composer.json` (Step 5); CI checks out Modulus under `Modules/`.
 
 **Herd:** https://inengine.app  
 
-**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, TableUI, Documentation.
+**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, module-skeleton, TableUI, Documentation.
 
 **Cursor handoffs:** Every level above has `.cursor/SESSION_HANDOFF.md` (+ `session-handoff` rule). When switching roots, read that repo’s handoff.
 
@@ -45,6 +46,20 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 ```
 
 <!-- SESSION_LOG_START -->
+
+### 2026-11-03 — Step 5 Core requires Modulus
+
+- **Branch (Core):** `dev`
+- **Done:** `inengine/modulus` in Core `require`; published `config/modulus.php`; early `PackageManifestInstaller` kept; Pest host-contract + arch smoke; CI path-checkout Modulus. Modulus fix: installer uses concrete `Filesystem` before `files` is bound.
+- **Next:** Step 6 lifecycle hooks + non-destructive rules + migrations on enable.
+- **Open questions:** Retarget CI Modulus ref from `feat/modulus-state-store` → `main` after merge; Packagist when tagged.
+
+### 2026-11-03 — Step 4b module-skeleton repo live
+
+- **Branch (Core):** `dev` (reviewing Step 4 handshake)
+- **Done:** Created `InEngine/Modules/module-skeleton` from Spatie fork; GitHub template repo https://github.com/InEngine/module-skeleton; PHPStorm content root + VCS; `ModuleServiceProvider` + capability stub; Pest green; project issue #1 (In progress).
+- **Next:** Continue skeleton polish while reviewing Step 4; commit Modulus Step 4 handshake; later Core `require` Modulus (Step 5).
+- **Open questions:** Capability descriptor format final shape; when to retarget skeleton CI from Modulus `feat/modulus-state-store` to `main`.
 
 ### 2026-11-03 — Modulus Steps 1–2 underway
 

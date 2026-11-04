@@ -24,8 +24,16 @@ jobs:
       DB_DATABASE: ':memory:'
 
     steps:
-      - name: Checkout code
+      - name: Checkout Core
         uses: actions/checkout@v4
+
+      - name: Checkout Modulus (local path for *@dev)
+        uses: actions/checkout@v4
+        with:
+          repository: InEngine/Modulus
+          ref: feat/modulus-state-store
+          path: Modules/Modulus
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -40,8 +48,24 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+      - name: Enable CI path repository for Modulus
+        run: |
+          cat > composer.local.json <<'EOF'
+          {
+              "repositories": [
+                  {
+                      "type": "path",
+                      "url": "Modules/*",
+                      "options": {
+                          "symlink": true
+                      }
+                  }
+              ]
+          }
+          EOF
+
       - name: Install Composer dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Setup Node
         uses: actions/setup-node@v4
