@@ -20,8 +20,11 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/InEngine/Modulus.git"
+            "type": "path",
+            "url": "../Modules/Modulus",
+            "options": {
+                "symlink": true
+            }
         }
     ],
     "require-dev": {
