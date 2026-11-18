@@ -1,13 +1,61 @@
+# InEngine Core
+
+Modular Laravel host (PHP 8.5, Laravel 13). Product features belong in Modulus modules (`inengine/{feature}`), not in Core `App\` by default.
+
+## Build and test
+
+- `composer test` / `php artisan test --compact`
+- `composer phpstan` / `vendor/bin/phpstan analyse`
+- `vendor/bin/pint --dirty --format agent`
+- `composer run dev` for local server stack
+
+## InEngine / Modulus
+
+- Follow `.ai/guidelines/inengine-core.md` and the `modulus-modules` skill when touching modules.
+- Package guidelines ship from `inengine/modulus` via `resources/boost/guidelines/`.
+- Canonical plan: sibling Documentation `Plan and Design.md`.
+- Project rules index: `.ai/rules/index.md` — read matching rules before planning or editing.
+
 <laravel-boost-guidelines>
+=== .ai/inengine-core rules ===
+
+# InEngine Core (host)
+
+Opinionated modular Laravel host. Product features live in Modulus feature modules (`inengine/{feature}`), not in `App\` by default.
+
+## Architecture
+
+- **Requires** `inengine/modulus`. Boot / install PackageManifest filtering early so discovery gating works before feature providers load.
+- Publish Modulus config; `storage/modulus` (or configured `modulus.state_path`) must be writable.
+- No default `User` model and no product features in Core — identity belongs in a future Users module.
+- Local path modules: `composer.local.json` / merge plugin → `../Modules/*` `@dev`.
+
+## Working with modules
+
+- Prefer `Modulus::…` / Artisan `modulus:*` (as commands land) over editing `storage/modulus/modules.json` by hand.
+- Install ≠ enable: require → `Modulus::publish()` → enable → optional confirmed seed.
+- Follow `inengine/modulus` Boost guidelines (package `resources/boost/guidelines/core.blade.php`) for lifecycle, deps, and events.
+- New feature modules: create from `InEngine/module-skeleton`, not hand-rolled providers.
+
+## Quality
+
+- PHP ^8.5, Laravel 13, Pest, Pint, PHPStan/Larastan, Livewire 4.
+- Prefer PHPDoc over inline comments.
+- Use Laravel Boost MCP (`search-docs`, etc.) for framework APIs; use Modulus docs/guidelines for module runtime behavior.
+
+## Canonical docs
+
+- Sibling Documentation repo: `Plan and Design.md`
+- Modulus: `DESIGN.md`, `INTEGRATION.md`
+- Skeleton: `TEMPLATE.md`, `resources/DEPENDENCIES.md`, `resources/INTEGRATION.md`
+
 === foundation rules ===
 
 # Laravel Boost Guidelines
 
-The Laravel Boost guidelines are specifically curated by Laravel maintainers for this application. These guidelines should be followed closely to ensure the best experience when building Laravel applications.
-
 ## Foundational Context
 
-This application is a Laravel application running on PHP 8.5. You are an expert with the Laravel ecosystem. Always use the APIs that match the installed major version of each package — do not assume a version.
+This application is a Laravel application running on PHP 8.5. Always use the APIs that match the installed major version of each package — do not assume a version.
 
 Before relying on a package's API, confirm its installed version:
 - PHP packages: run `composer show --direct` to list direct dependencies with versions, or `composer show <vendor/package>` for a single package.
@@ -34,15 +82,11 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## Frontend Bundling
 
-- If the user doesn't see a frontend change reflected in the UI, it could mean they need to run `npm run build`, `npm run dev`, or `composer run dev`. Ask them.
+- If a frontend change doesn't show in the UI or you get a "Unable to locate file in Vite manifest" error, run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
 
 ## Documentation Files
 
 - You must only create documentation files if explicitly requested by the user.
-
-## Replies
-
-- Be concise in your explanations - focus on what's important rather than explaining obvious details.
 
 === boost rules ===
 
@@ -72,8 +116,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## Project Rules
 
-- This project contains committed, area-grouped rules in `.ai/rules` when that directory exists (settled decisions, non-obvious traps, standing constraints). Framework and package guidelines that only apply to specific paths (testing, frontend, components) also live there, under `.ai/rules/boost` — this is not just recorded decisions, it is load-bearing guidance you have not seen inline. Before you enter plan mode or create/edit any file, you MUST first: open @.ai/rules/index.md (it maps file globs to rule files), read every rule file whose globs cover the path(s) in scope, and run `grep -rin 'keyword' .ai/rules` to catch what a path match alone misses. Do not write code until you have read and are following every matching rule. If `.ai/rules` does not exist, continue without it.
-- Record durable rules with `record-rule` so the next agent or teammate inherits them instead of working them out again. Pass a `glob` (e.g. `app/Http/Controllers/**`), a short `title`, and a few-line `note`. Always use `record-rule`, never your native memory or notes tool — native memory is personal and session-scoped; only `.ai/rules` is shared with the team and persists in the repo.
+- This project contains committed, area-grouped rules in `.ai/rules` when that directory exists, including path-scoped framework guidelines under `.ai/rules/boost`. Before you enter plan mode or create/edit any file, you MUST first: open @.ai/rules/index.md (it maps file globs to rule files), read every rule file whose globs cover the path(s) in scope, and run `grep -rin 'keyword' .ai/rules` to catch what a path match alone misses. Do not write code until you have read and are following every matching rule. If `.ai/rules` does not exist, continue without it.
 
 ## Artisan
 
@@ -130,10 +173,6 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - Faker: Use methods such as `$this->faker->word()` or `fake()->randomDigit()`. Follow existing conventions whether to use `$this->faker` or `fake()`.
 - When creating tests, make use of `php artisan make:test [options] {name}` to create a feature test, and pass `--unit` to create a unit test. Most tests should be feature tests.
 
-## Vite Error
-
-- If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
-
 === livewire/core rules ===
 
 # Livewire
@@ -163,6 +202,62 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - Run the narrowest set of tests that covers the change. Pass a file path or `--filter=testName` to `php artisan test --compact`.
 - Rerun a test after each change to it.
 - Run `vendor/bin/pest` to call the test runner directly. It accepts the same file path and `--filter=testName` arguments.
-- After the feature tests pass, ask the user to run the complete suite with `php artisan test --compact`.
+
+=== inengine/modulus/core rules ===
+
+## inengine/modulus
+
+Module runtime for InEngine hosts: file-backed enable/disable state, Laravel `PackageManifest` filtering, register-with-Modulus handshake, lifecycle hooks, Composer dependency guards, publish/seed APIs, and lifecycle events.
+
+Prefer `InEngine\Modulus\Facades\Modulus` / `ModuleRepository` over touching the state store or discovery syncer directly.
+
+### Install ≠ enable
+
+1. Composer require (or path `@dev`) installs the package.
+2. `Modulus::publish($package)` on install/update (config + `resources/dist` → `public/vendor/{name}`) — owned by `inengine/modulus-composer` later; call manually until then.
+3. Packages default **disabled** until `Modulus::enable($package)` (or future `modulus:enable`).
+4. Enable runs dependency checks → activating → migrate → state → discovery sync → activated. It does **not** publish assets or seed.
+5. Seed only via `Modulus::seed($package, confirmed: true)`.
+
+### Naming
+
+- Runtime: `inengine/modulus`
+- Extensions: `inengine/modulus-{role}` only (`composer`, `marketplace`, `ui`, `inspect`) — never fold Composer hooks or operator UI into this package
+- Feature modules: `inengine/{feature}` from `InEngine/module-skeleton` — never `modulus-*`
+
+### Feature modules
+
+- Extend `InEngine\Modulus\ModuleServiceProvider`; declare `modulusPackageName()`.
+- Discovery only via `extra.laravel.providers`.
+- Migrations on enable/upgrade; disable/forget/uninstall are non-destructive (no schema wipe).
+- Migrations must guard `Schema::hasTable` for re-enable after non-destructive uninstall.
+
+### Dependencies (Step 7)
+
+- Hard graph = package `composer.json` `require` (skip php/ext/composer-* platform keys).
+- Required **Modulus modules** must be installed **and** enabled before enable.
+- **Non-Modulus** Composer packages must be installed only; they keep normal Laravel discovery / `vendor:publish`.
+- Modules may optionally reach down in `activating()` / `bootstrapNonModulusDependencies()` for config, UI dist → `public/vendor`, or migrations.
+- Cannot disable/forget while enabled dependents still require the package.
+
+### Integration (Step 8)
+
+- Owning module side effects: `ModuleLifecycle` hooks on the provider.
+- Peers/host: listen to `InEngine\Modulus\Events\*` (`ModuleEnabled`, `ModuleDisabled`, `ModuleForgotten`, `ModuleUpgraded`, `ModuleRegistered`, `ModulePublished`, `ModuleSeeded`). Payload often includes `ModuleStateData`.
+- Cross-module APIs: PHP interfaces + readonly DTOs, bound in the Laravel container when the providing module is enabled. No custom plugin registry.
+- Author detail: package `INTEGRATION.md`.
+
+### Host wiring (Core)
+
+- Require `inengine/modulus` in the host `composer.json`.
+- Call `PackageManifestInstaller` early so filtering is active before feature providers load.
+- Publish Modulus config; keep `modulus.state_path` writable.
+- Do not put product features or a default `User` model in Core.
+
+### Tests & quality
+
+- Pest + PHPStan + Pint; PHP `^8.5`, Laravel 12/13 contracts.
+- Prefer PHPDoc over inline comments.
+- Canonical plan: InEngine Documentation `Plan and Design.md`.
 
 </laravel-boost-guidelines>

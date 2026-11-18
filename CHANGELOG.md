@@ -4,6 +4,12 @@ All notable changes to InEngine Core will be documented in this file.
 
 ## Unreleased
 
+### Step 8b — Laravel Boost agent guidelines
+
+- `.ai/guidelines/inengine-core.md`, `.ai/skills/modulus-modules`, `.ai/rules/inengine-modulus-host.md` (+ index)
+- `boost.json` includes `inengine/modulus` (package guidelines/skills) and `modulus-modules` skill
+- `AGENTS.md` project overview outside Boost block; `composer` `post-update-cmd` runs `boost:update`
+
 ### Modulus Step 6 host sync
 
 - Published `config/modulus.php` gains `migrations` and `publish` options (install-time asset/config publish; migrate-on-enable)

@@ -7,7 +7,8 @@
     "mcp": true,
     "nightwatch_mcp": false,
     "packages": [
-        "barryvdh/laravel-debugbar"
+        "barryvdh/laravel-debugbar",
+        "inengine/modulus"
     ],
     "sail": false,
     "skills": [
@@ -16,6 +17,7 @@
         "testing-best-practices",
         "livewire-development",
         "tailwindcss-development",
+        "modulus-modules",
         "debug-using-debugbar"
     ]
 }
