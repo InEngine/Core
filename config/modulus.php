@@ -57,4 +57,54 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Module migrations
+    |--------------------------------------------------------------------------
+    |
+    | On enable and on version-bump upgrade while enabled, Modulus runs pending
+    | migrations from each package's install path + this relative directory
+    | (Spatie / module-skeleton default: database/migrations).
+    |
+    | Disable and forget/uninstall never migrate and never drop schema.
+    | Module migrations should guard Schema::hasTable so re-enable after a
+    | non-destructive uninstall does not fail when tables already exist.
+    |
+    */
+    'migrations' => [
+        'path' => 'database/migrations',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Publish on install / Composer update (not enable)
+    |--------------------------------------------------------------------------
+    |
+    | ModuleRepository::publish() copies conventional paths from the Composer
+    | install root. Call it from inengine/modulus-composer after require/update
+    | (and before modulus:enable). Enable only migrates + boots — Install ≠ enable.
+    |
+    | Why not vendor:publish? Disabled modules are filtered out of PackageManifest,
+    | so Spatie publish tags are not registered until after enable.
+    |
+    | Resource policy:
+    | - config: optional host copies (runtime still mergeConfigFrom vendor on boot)
+    | - assets: public/vendor/{name} from resources/dist — needed for browser UI
+    | - views / lang / inertia: opt-in overrides; packages load these from vendor
+    |   Operator UI chrome belongs in inengine/modulus-ui, not each feature module
+    |
+    */
+    'publish' => [
+        'config' => true,
+        'assets' => true,
+        'views' => false,
+        'lang' => false,
+        'inertia' => false,
+        'force_config' => false,
+        'force_assets' => true,
+        'force_views' => false,
+        'force_lang' => false,
+        'force_inertia' => false,
+    ],
+
 ];

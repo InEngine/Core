@@ -47,6 +47,28 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 <!-- SESSION_LOG_START -->
 
+### 2026-11-17 — Modulus Step 6 on Atlas; Core config synced
+
+- **Branches:** Core `dev`; Modulus `feat/modulus-state-store` (Step 6 ready for review).
+- **Done:** Modulus Step 6 lifecycle + migrate-on-enable; publish on install; **`Modulus::seed(..., confirmed: true)`** only (skeleton confirming ModuleSeeder). Core `config/modulus.php` has `migrations` + `publish`. Suite: Modulus Pest **95** + PHPStan OK on Atlas.
+- **Next:** Review/commit Modulus Step 6 (+ skeleton stub) → Step 7 deps; Step 10 wires composer → publish.
+- **Open questions:** Capability descriptor final shape; doctor substitution UX.
+
+### 2026-11-03 — Checkpoint: Steps 0–5 + 4b done; next is Step 6
+
+- **Branches:** Core `dev` (ahead of origin); Modulus `feat/modulus-state-store` (ahead of origin); skeleton `main` on GitHub template.
+- **Where we are (Plan):** Steps **0–5** and **4b** complete. Runtime: state store, PackageManifest filter, ModuleRepository, handshake, Core requires Modulus (path via `composer.local`), invalid-store exceptions, missing enabled→throw / disabled→log. Skeleton live. Doctor missing-module **remediation** documented for Step 9 (not built).
+- **Done this arc:** Core Step 5 + local composer.local path (no GitHub token); Modulus coverage ~91%+; missing-package validation; Plan Step 9 repair options (install / supply / substitute).
+- **Next:** **Step 6** — lifecycle hooks + non-destructive disable/uninstall + migrations on enable/upgrade. Then 7 deps → 8 events/contracts → 9 Artisan/doctor (+ missing repair) → 10 modulus-composer → 13 Alert pilot.
+- **Push/merge:** Push Modulus commits then Core; retarget CI Modulus ref to `main` after merge; Packagist when tagged.
+- **Open questions:** Capability descriptor final shape; doctor substitution UX (capability match vs explicit rename).
+
+### 2026-11-03 — Doctor missing-module remediation (planned)
+
+- **Done (docs):** Step 9 plan: `modulus:doctor` lists missing tracked packages; repair via Composer install, supply path/VCS, or substitute another module (`modulus-composer` does I/O).
+- **Next:** Step 6 lifecycle; implement doctor remediation with Step 9/10.
+- **Open questions:** Substitution UX (capability match vs explicit package rename).
+
 ### 2026-11-03 — Step 5 Core requires Modulus
 
 - **Branch (Core):** `dev`
