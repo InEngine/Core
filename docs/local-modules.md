@@ -20,7 +20,7 @@ InEngine/
 cp composer.local.dist.json composer.local.json
 ```
 
-2. Dist content registers path repositories:
+2. Dist content registers path repositories **and** overrides Modulus to `*@dev`:
 
 ```json
 {
@@ -30,11 +30,18 @@ cp composer.local.dist.json composer.local.json
       "url": "../Modules/*",
       "options": { "symlink": true }
     }
-  ]
+  ],
+  "require": {
+    "inengine/modulus": "*@dev"
+  }
 }
 ```
 
-The Wikimedia merge plugin merges `composer.local.json` into the root Composer config. Core’s `composer.json` already requires `inengine/modulus` as `*@dev`; path resolution supplies the package from `../Modules/Modulus`.
+The Wikimedia merge plugin merges `composer.local.json` into the root Composer config. Published Core requires `inengine/modulus` `^0.1` from Packagist; local/CI path `*@dev` only when `composer.local.json` exists.
+
+## Production / release
+
+Remove `composer.local.json` before deploy or create-project packaging. The Core release workflow strips it so production never accidentally path-resolves sibling Modules.
 
 ## Optional: Modulus Composer
 

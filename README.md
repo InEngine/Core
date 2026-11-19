@@ -23,11 +23,22 @@ composer run setup
 composer run dev
 ```
 
+Default route is a splash page (InEngine Core · built on Laravel) with links to GitHub and the site. No product UI ships in Core.
+
 Herd site: [https://inengine.app](https://inengine.app)
+
+## Dependencies
+
+- **require:** `inengine/modulus` `^0.1` (Packagist once published; path `*@dev` via local merge in develop)
+- **require-dev:** includes Debugbar, Boost, Pest, Pint, Larastan, …
+
+Do **not** hard-require **Modulus Composer** in Core (opt-in).
 
 ## Local modules
 
-Copy `composer.local.dist.json` → `composer.local.json` (gitignored). Path repositories point at `../Modules/*` via the Composer merge plugin. Core requires `inengine/modulus` `*@dev`; do **not** hard-require **Modulus Composer** in Core.
+Copy `composer.local.dist.json` → `composer.local.json` (gitignored). Path repos + `inengine/modulus` `*@dev` via the Composer merge plugin.
+
+**Production / release:** do **not** ship `composer.local.json` — the release workflow deletes it so installs resolve Modulus from Packagist.
 
 See [Local modules](docs/local-modules.md).
 

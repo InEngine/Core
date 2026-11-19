@@ -6,6 +6,9 @@ All notable changes to InEngine Core will be documented in this file.
 
 ### Changed
 
+- Splash-only UI: replace Laravel welcome with InEngine Core splash (GitHub / website / Modulus links)
+- Require `inengine/modulus` `^0.1` for Packagist; local/CI keep path `*@dev` via `composer.local.json`
+- Release workflow strips `composer.local.json` before tagging
 - Add MIT `LICENSE.txt` (Core remains MIT)
 
 ### Docs

@@ -13,7 +13,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.5",
-        "inengine/modulus": "*@dev",
+        "inengine/modulus": "^0.1",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.4"

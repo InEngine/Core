@@ -92,6 +92,15 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Strip local Composer path merge (prod / release)
+        run: |
+          set -euo pipefail
+          rm -f composer.local.json
+          if [ -f composer.local.json ]; then
+            echo "composer.local.json must not ship in releases" >&2
+            exit 1
+          fi
+
       - name: Bump composer.json version
         run: |
           php -r '

@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: InEngine/Modulus
-          ref: feat/modulus-state-store
+          ref: main
           path: Modules/Modulus
           # Default GITHUB_TOKEN cannot read other private org repos.
           token: ${{ secrets.INENGINE_CI_TOKEN }}
@@ -67,7 +67,10 @@ jobs:
                           "symlink": true
                       }
                   }
-              ]
+              ],
+              "require": {
+                  "inengine/modulus": "*@dev"
+              }
           }
           EOF
 
