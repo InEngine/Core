@@ -9,6 +9,10 @@ Modular Laravel host (PHP 8.5, Laravel 13). Product features belong in Modulus m
 - `vendor/bin/pint --dirty --format agent`
 - `composer run dev` for local server stack
 
+## Project docs
+
+- User docs (GitHub Pages): `docs/`
+
 ## InEngine / Modulus
 
 - Follow `.ai/guidelines/inengine-core.md` and the `modulus-modules` skill when touching modules.

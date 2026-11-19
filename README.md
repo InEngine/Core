@@ -1,6 +1,11 @@
 # InEngine Core
 
-Opinionated modular Laravel application framework. Products (Provost, CMS, …) and client apps build on this shell plus Modulus-compatible modules.
+[![Tests](https://img.shields.io/github/actions/workflow/status/InEngine/Core/tests.yml?branch=dev&label=tests&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3Atests+branch%3Adev)
+[![PHPStan](https://img.shields.io/github/actions/workflow/status/InEngine/Core/phpstan.yml?branch=dev&label=phpstan&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3Aphpstan+branch%3Adev)
+
+Opinionated modular Laravel application framework. Products (Provost, CMS, …) and client apps build on this shell plus [Modulus](https://github.com/InEngine/Modulus)-compatible modules.
+
+**Documentation:** [docs/](docs/) (GitHub Pages from `/docs` when enabled).
 
 ## Stack
 
@@ -9,14 +14,29 @@ Opinionated modular Laravel application framework. Products (Provost, CMS, …) 
 - Tailwind CSS (Vite)
 - Pest, Larastan, Laravel Debugbar, IDE Helper, Laravel Boost
 
+## Quick start
+
+```bash
+composer run setup
+composer run dev
+```
+
+Herd site: [https://inengine.app](https://inengine.app)
+
 ## Local modules
 
-Copy `composer.local.dist.json` to `composer.local.json` (gitignored). Path repositories point at `../Modules/*` via the Composer merge plugin. Add `"inengine/modulus": "@dev"` (and other modules) to the local `require` block when those packages support this Laravel major.
+Copy `composer.local.dist.json` → `composer.local.json` (gitignored). Path repositories point at `../Modules/*` via the Composer merge plugin. Core requires `inengine/modulus` `*@dev`; do **not** hard-require **Modulus Composer** in Core.
 
-## Herd
+See [Local modules](docs/local-modules.md).
 
-Site: [https://inengine.app](https://inengine.app)
+## Modulus
+
+Early `PackageManifestInstaller` in `bootstrap/app.php` so discovery gating works before feature providers load. Day-to-day: `modulus:*` Artisan — details in [Modulus host](docs/modulus.md).
 
 ## Versioning
 
-Semantic versioning. Merges into `master`/`main` trigger a version bump and GitHub Release (see `.github/workflows/release-on-merge.yml`).
+Semantic versioning. Merges into `master`/`main` trigger a version bump and GitHub Release (see `.github/workflows/release-on-merge.yml`). Default branch for development: **`dev`**.
+
+## License
+
+MIT.

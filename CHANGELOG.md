@@ -4,6 +4,10 @@ All notable changes to InEngine Core will be documented in this file.
 
 ## Unreleased
 
+### Docs
+
+- User-facing documentation under `docs/` (Getting started, architecture, local modules, Modulus host, development, related packages) for GitHub Pages
+
 ### Step 8b — Laravel Boost agent guidelines
 
 - `.ai/guidelines/inengine-core.md`, `.ai/skills/modulus-modules`, `.ai/rules/inengine-modulus-host.md` (+ index)
