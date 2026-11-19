@@ -17,7 +17,6 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 | **Skeleton** | `…/InEngine/Modules/Skeleton` | `../Modules/Skeleton` | https://github.com/InEngine/Skeleton — GitHub **template** only (not Packagist); issue #1 Step 4b |
 | **ModulusComposer** | `…/InEngine/Modules/ModulusComposer` | `../Modules/ModulusComposer` | https://github.com/InEngine/Modulus-Composer — `inengine/modulus-composer` (Step 10; optional host require) |
 | **Documentation** | `…/InEngine/Documentation` | `../Documentation` | Design docs (`Plan and Design.md`), logos, premise |
-| **Provost** | `…/Provost/web` | `../../Provost/web` | https://github.com/excellentingenuity/Provost-Web — [Provost #4](https://github.com/users/excellentingenuity/projects/4) |
 | **LTC app (legacy)** | `…/LegacyTradeCollege/app` | `../../LegacyTradeCollege/app` | https://github.com/excellentingenuity/LegacyTradeCollege — [LTC #3](https://github.com/users/excellentingenuity/projects/3) |
 
 **Local modules:** `composer.local.dist.json` → `composer.local.json` (gitignored). Path repos `../Modules/*` live only in composer.local (merge plugin). Core **requires** `inengine/modulus` `*@dev` in `composer.json`; resolution is local-path via composer.local — no GitHub VCS/token. CI writes path `Modules/*` into `composer.local.json`.
@@ -57,14 +56,14 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 ### 2026-11-19 — Step 10 closed; spine ready for 11/13
 
 - **Branches:** Core `dev`; Modulus `feat/modulus-state-store`; ModulusComposer `main`; Skeleton `main`.
-- **Done:** Steps **0–10 + 8b**. Licensing locked (MIT OSS; **`modulus-ui` private Pro**; **InnKeeper unreleased source**). Docs/brain updated (Plan, Distribution, READMEs, DESIGN, handoffs).
-- **Next:** **Step 11** quality-gate audit and/or **Step 13** Alert pilot + Provost Modulus boot. Optional: path-opt-in Modulus Composer on Core. Do not block on marketplace/UI.
+- **Done:** Steps **0–10 + 8b**. Licensing locked (MIT OSS; **`modulus-ui` private Pro**; ). Docs/brain updated (Plan, Distribution, READMEs, DESIGN, handoffs).
+- **Next:** **Step 11** quality-gate audit and/or **Step 13** Alert pilot . Optional: path-opt-in Modulus Composer on Core. Do not block on marketplace/UI.
 - **Open questions:** Commercial license text when scaffolding private Pro UI.
 
 ### 2026-11-19 — Licensing split locked
 
 - **Branches:** Core `dev`; Modulus `feat/modulus-state-store`; ModulusComposer `main`; Skeleton `main`.
-- **Done:** Core / Modulus / Modulus Composer / Skeleton → **MIT**. Docs + DESIGN record: **`modulus-ui` = private Pro**; **Innkeeper = unreleased source**.
+- **Done:** Core / Modulus / Modulus Composer / Skeleton → **MIT**. Docs + DESIGN record: **`modulus-ui` = private Pro**; .
 - **Next:** *(Superseded — see Step 10 closed entry.)*
 - **Open questions:** Commercial license text for `modulus-ui` when scaffolded.
 
@@ -150,8 +149,8 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 ### 2026-08-28 — Session pause (platform bootstrap complete)
 
 - **Branch:** `dev`
-- **Done:** Multi-level Cursor handoffs everywhere; Provost parity issues **#1–#32** on project Backlog; Modulus L13 PR #7 + local `@dev` wiring; Core/Provost/Alert/TableUI/Modulus docs pushed.
-- **Next:** Merge Modulus PR #7 when CI green; start Provost Backlog from #1 (Require Modulus).
+- **Done:** Multi-level Cursor handoffs everywhere; Modulus L13 PR #7 + local `@dev` wiring; Core/Alert/TableUI/Modulus docs pushed.
+- **Next:** Merge Modulus PR #7 when CI green; continue Step 13 Alert pilot.
 - **Open questions:** Core `dev` → `master` via PR (not force-push); Tailwind Plus deferred (Spatie auth).
 
 ### 2026-08-28 — Fresh Laravel 13 Core bootstrap

@@ -4,7 +4,7 @@
 [![PHPStan](https://img.shields.io/github/actions/workflow/status/InEngine/Core/phpstan.yml?branch=dev&label=phpstan&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3Aphpstan+branch%3Adev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 
-**InEngine Core** is an **opinionated Laravel-based modular application builder framework**. Products (Provost, Innkeeper, …) and custom apps start from this host shell and grow through [Modulus](https://github.com/InEngine/Modulus)-compatible feature modules — not by stuffing product code into `App\` by default.
+**InEngine Core** is an **opinionated Laravel-based modular application builder framework**. Product and custom apps start from this host shell and grow through [Modulus](https://github.com/InEngine/Modulus)-compatible feature modules — not by stuffing product code into `App\` by default.
 
 **Documentation:** [docs/](docs/) · [https://inengine.github.io/Core/](https://inengine.github.io/Core/)
 
@@ -22,7 +22,7 @@ Built on **[Laravel](https://laravel.com)** (MIT). InEngine Core is a specialize
 | **Composer client (opt-in)** | **[Modulus Composer](https://github.com/InEngine/Modulus-Composer)** (`inengine/modulus-composer`) — require/remove/update/approve; **not** hard-required by Core |
 | **require-dev** | Laravel Debugbar, Laravel Boost, IDE Helper, Pest (+ plugins), Pint, Larastan, Ignition, Pail, … |
 
-**Licensing:** Core, Modulus, Modulus Composer, and [Skeleton](https://github.com/InEngine/Skeleton) are **MIT**. `modulus-ui` will be **private Pro**. Innkeeper stays **unreleased source** until published.
+**Licensing:** Core, Modulus, Modulus Composer, and [Skeleton](https://github.com/InEngine/Skeleton) are **MIT**. `modulus-ui` will be **private Pro**.
 
 ## Quick start
 

@@ -14,7 +14,7 @@ Built on **[Laravel](https://laravel.com)**. Core does not replace Laravel; it c
 | **Modulus Composer** (`inengine/modulus-composer`) | **Opt-in** — Composer require/remove/update/approve + `ModuleUpdateApplier` |
 | **Feature modules** (`inengine/{feature}`) | Product capabilities from [Skeleton](https://github.com/InEngine/Skeleton) (GitHub template; not Packagist) |
 | **Extensions** (`inengine/modulus-*`) | Optional tools (`modulus-ui` = **private Pro**; marketplace/inspect planned) |
-| **Products** (e.g. Innkeeper) | Apps on Core — Innkeeper is **unreleased source** |
+| **Products** | Core-shaped apps that require and enable feature modules |
 
 ## Default packages (Core)
 
