@@ -72,7 +72,13 @@ jobs:
           EOF
 
       - name: Install Composer dependencies
-        run: composer update --no-interaction --prefer-dist --optimize-autoloader
+        run: |
+          # Skip scripts until APP_KEY exists (package:discover / ide-helper need it).
+          composer update --no-interaction --prefer-dist --no-scripts
+          cp .env.example .env
+          php -r '$e=file_get_contents(".env"); $k="base64:".base64_encode(random_bytes(32)); file_put_contents(".env", preg_replace("/^APP_KEY=.*/m", "APP_KEY=".$k, $e));'
+          composer dump-autoload --optimize
+          php artisan package:discover --ansi
 
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyse --memory-limit=2G --error-format=github
