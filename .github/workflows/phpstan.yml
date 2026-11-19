@@ -41,7 +41,8 @@ jobs:
           repository: InEngine/Modulus
           ref: feat/modulus-state-store
           path: Modules/Modulus
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Default GITHUB_TOKEN cannot read other private org repos.
+          token: ${{ secrets.INENGINE_CI_TOKEN }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
