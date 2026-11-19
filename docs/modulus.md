@@ -1,6 +1,6 @@
 # Modulus host
 
-Core is a first-class Modulus host. Full runtime docs: [InEngine/Modulus docs](https://github.com/InEngine/Modulus/tree/feat/modulus-state-store/docs).
+Core is a first-class Modulus host: the opinionated Laravel-based modular application builder framework **requires** `inengine/modulus`. Full runtime docs: [InEngine/Modulus docs](https://github.com/InEngine/Modulus/tree/main/docs).
 
 ## Early boot (required)
 

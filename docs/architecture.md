@@ -1,27 +1,40 @@
 # Architecture
 
-Core is a **thin host**. Product features belong in Modulus feature modules, not in `App\` by default. There is no default `User` model — identity will live in a future Users module.
+**InEngine Core** is an opinionated **Laravel-based modular application builder framework**. It is a **thin host**: product features belong in Modulus feature modules, not in `App\` by default. There is no default `User` model — identity belongs in a future Users module.
+
+Built on **[Laravel](https://laravel.com)**. Core does not replace Laravel; it composes Laravel with Modulus and optional extensions.
 
 ## Layers
 
 | Layer | Role |
 |-------|------|
-| **Core** (`inengine/core`) | Laravel shell, Livewire, Tailwind, host wiring for Modulus |
-| **Modulus** (`inengine/modulus`) | Enable/disable, discovery filter, lifecycle, `modulus:*` Artisan |
-| **Feature modules** (`inengine/{feature}`) | Product capabilities from [Skeleton](https://github.com/InEngine/Skeleton) |
-| **Extensions** (`inengine/modulus-*`) | Optional runtime tools (Composer client public MIT; **`modulus-ui` private Pro**; marketplace/inspect planned) |
-| **Products** (e.g. Innkeeper) | App products on Core — Innkeeper is **unreleased source** (not public yet) |
+| **Laravel** | Application framework (`laravel/framework` ^13, PHP ^8.5) |
+| **Core** (`inengine/core`) | Opinionated host / create-project root: early Modulus boot, Vite/Tailwind, Livewire available for modules, splash-only default UI |
+| **Modulus** (`inengine/modulus`) | **Required** — enable/disable, discovery filter, lifecycle, `modulus:*` Artisan |
+| **Modulus Composer** (`inengine/modulus-composer`) | **Opt-in** — Composer require/remove/update/approve + `ModuleUpdateApplier` |
+| **Feature modules** (`inengine/{feature}`) | Product capabilities from [Skeleton](https://github.com/InEngine/Skeleton) (GitHub template; not Packagist) |
+| **Extensions** (`inengine/modulus-*`) | Optional tools (`modulus-ui` = **private Pro**; marketplace/inspect planned) |
+| **Products** (e.g. Innkeeper) | Apps on Core — Innkeeper is **unreleased source** |
+
+## Default packages (Core)
+
+**require**
+
+- `laravel/framework`, `laravel/tinker`
+- `livewire/livewire` (for modules/products; Core ships no Livewire screens)
+- `inengine/modulus` `^0.1`
+
+**require-dev (selected)**
+
+- `barryvdh/laravel-debugbar`, `laravel/boost`, `barryvdh/laravel-ide-helper`
+- Pest (+ Laravel/Livewire/Faker plugins), Pint, Larastan
+- `spatie/laravel-ignition`, Pail, merge-plugin (local path modules)
+
+**Not required by Core:** Modulus Composer — install when the host should drive Composer I/O from Artisan.
 
 ## Rules of thumb
 
 1. Prefer `Modulus::…` / `modulus:*` over editing module state files by hand.
 2. **Install ≠ enable ≠ seed** — Composer acquire, publish, enable, and confirmed seed are separate steps.
-3. Extensions such as **[Modulus Composer](https://github.com/InEngine/Modulus-Composer)** are opt-in. Core must **not** hard-require them.
+3. Use **[Modulus Composer](https://github.com/InEngine/Modulus-Composer)** for acquire/remove/update when opted in; Core must **not** hard-require it.
 4. New features: create from Skeleton as `inengine/{feature}` — never `inengine/modulus-*`.
-
-## Stack
-
-- Laravel 13 / PHP 8.5
-- Livewire 4
-- Tailwind CSS (Vite)
-- Pest, Larastan/PHPStan, Pint, Laravel Debugbar, IDE Helper, Laravel Boost

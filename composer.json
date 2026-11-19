@@ -2,12 +2,13 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "inengine/core",
     "type": "project",
-    "description": "InEngine Core — opinionated modular Laravel application framework",
+    "description": "InEngine Core — opinionated Laravel-based modular application builder framework",
     "keywords": [
         "laravel",
         "framework",
         "inengine",
-        "modulus"
+        "modulus",
+        "modular"
     ],
     "version": "0.1.0",
     "license": "MIT",
