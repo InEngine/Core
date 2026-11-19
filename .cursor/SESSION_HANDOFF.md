@@ -15,7 +15,7 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 | **GoogleCalendarAdapter** | `…/InEngine/Modules/GoogleCalendarAdapter` | `../Modules/GoogleCalendarAdapter` | https://github.com/InEngine/GoogleCalendarAdapter |
 | **Alert** | `…/InEngine/Modules/Alert` | `../Modules/Alert` | https://github.com/InEngine/Alert |
 | **Skeleton** | `…/InEngine/Modules/Skeleton` | `../Modules/Skeleton` | https://github.com/InEngine/Skeleton — GitHub **template** only (not Packagist); issue #1 Step 4b |
-| **ModulusComposer** | `…/InEngine/Modules/ModulusComposer` | `../Modules/ModulusComposer` | https://github.com/InEngine/ModulusComposer — `inengine/modulus-composer` (Step 10; optional host require) |
+| **ModulusComposer** | `…/InEngine/Modules/ModulusComposer` | `../Modules/ModulusComposer` | https://github.com/InEngine/Modulus-Composer — `inengine/modulus-composer` (Step 10; optional host require) |
 | **Documentation** | `…/InEngine/Documentation` | `../Documentation` | Design docs (`Plan and Design.md`), logos, premise |
 | **Provost** | `…/Provost/web` | `../../Provost/web` | https://github.com/excellentingenuity/Provost-Web — [Provost #4](https://github.com/users/excellentingenuity/projects/4) |
 | **LTC app (legacy)** | `…/LegacyTradeCollege/app` | `../../LegacyTradeCollege/app` | https://github.com/excellentingenuity/LegacyTradeCollege — [LTC #3](https://github.com/users/excellentingenuity/projects/3) |

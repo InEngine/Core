@@ -16,7 +16,7 @@ Core is a **thin host**. Product features belong in Modulus feature modules, not
 
 1. Prefer `Modulus::…` / `modulus:*` over editing module state files by hand.
 2. **Install ≠ enable ≠ seed** — Composer acquire, publish, enable, and confirmed seed are separate steps.
-3. Extensions such as **[Modulus Composer](https://github.com/InEngine/ModulusComposer)** are opt-in. Core must **not** hard-require them.
+3. Extensions such as **[Modulus Composer](https://github.com/InEngine/Modulus-Composer)** are opt-in. Core must **not** hard-require them.
 4. New features: create from Skeleton as `inengine/{feature}` — never `inengine/modulus-*`.
 
 ## Stack

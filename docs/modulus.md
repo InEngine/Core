@@ -44,6 +44,6 @@ Default upgrade constraint policy: **patch** → `~x.y.z`. Minor/major bumps go 
 
 | Package | Display name | In Core |
 |---------|--------------|---------|
-| [`inengine/modulus-composer`](https://github.com/InEngine/ModulusComposer) | **Modulus Composer** | Opt-in only (path / Packagist); public MIT |
+| [`inengine/modulus-composer`](https://github.com/InEngine/Modulus-Composer) | **Modulus Composer** | Opt-in only (path / Packagist); public MIT |
 | `inengine/modulus-marketplace` | (planned) | Opt-in |
 | `inengine/modulus-ui` | (planned) | Opt-in — **private Pro** (not public Packagist) |
