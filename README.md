@@ -3,9 +3,11 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/InEngine/Core/tests.yml?branch=dev&label=tests&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3Atests+branch%3Adev)
 [![PHPStan](https://img.shields.io/github/actions/workflow/status/InEngine/Core/phpstan.yml?branch=dev&label=phpstan&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3Aphpstan+branch%3Adev)
 
-Opinionated modular Laravel application framework. Products (Provost, CMS, …) and client apps build on this shell plus [Modulus](https://github.com/InEngine/Modulus)-compatible modules.
+Opinionated modular Laravel application framework. Products (Provost, Innkeeper, …) and client apps build on this shell plus [Modulus](https://github.com/InEngine/Modulus)-compatible modules.
 
-**Documentation:** [docs/](docs/) (GitHub Pages from `/docs` when enabled).
+**Documentation:** [docs/](docs/) · [https://inengine.github.io/Core/](https://inengine.github.io/Core/)
+
+**Licensing:** Core is **MIT**. Modulus / Modulus Composer / Skeleton are MIT. Operator UI (`modulus-ui`) will be **private Pro**. Innkeeper stays **unreleased source** until published.
 
 ## Stack
 

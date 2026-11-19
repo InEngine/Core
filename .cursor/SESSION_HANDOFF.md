@@ -48,11 +48,18 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 <!-- SESSION_LOG_START -->
 
+### 2026-11-19 — Step 10 closed; spine ready for 11/13
+
+- **Branches:** Core `dev`; Modulus `feat/modulus-state-store`; ModulusComposer `main`; Skeleton `main`.
+- **Done:** Steps **0–10 + 8b**. Licensing locked (MIT OSS; **`modulus-ui` private Pro**; **InnKeeper unreleased source**). Docs/brain updated (Plan, Distribution, READMEs, DESIGN, handoffs).
+- **Next:** **Step 11** quality-gate audit and/or **Step 13** Alert pilot + Provost Modulus boot. Optional: path-opt-in Modulus Composer on Core. Do not block on marketplace/UI.
+- **Open questions:** Commercial license text when scaffolding private Pro UI.
+
 ### 2026-11-19 — Licensing split locked
 
 - **Branches:** Core `dev`; Modulus `feat/modulus-state-store`; ModulusComposer `main`; Skeleton `main`.
 - **Done:** Core / Modulus / Modulus Composer / Skeleton → **MIT**. Docs + DESIGN record: **`modulus-ui` = private Pro**; **Innkeeper = unreleased source**.
-- **Next:** Marketplace later; private Pro UI when ready; keep Pro code out of MIT packages.
+- **Next:** *(Superseded — see Step 10 closed entry.)*
 - **Open questions:** Commercial license text for `modulus-ui` when scaffolded.
 
 ### 2026-11-19 — Step 10 ModulusComposer shipped; Skeleton rename
