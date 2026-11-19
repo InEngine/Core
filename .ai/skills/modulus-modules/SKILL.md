@@ -7,7 +7,7 @@ description: "Use when enabling/disabling InEngine modules, publishing module as
 
 ## When to use
 
-Working on Core host wiring, `inengine/modulus`, `InEngine/module-skeleton`, or any `inengine/{feature}` module.
+Working on Core host wiring, `inengine/modulus`, `InEngine/Skeleton`, or any `inengine/{feature}` module.
 
 ## Install ≠ enable ≠ seed
 

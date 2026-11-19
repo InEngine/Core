@@ -14,7 +14,8 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 | **Calendar** | `…/InEngine/Modules/Calendar` | `../Modules/Calendar` | https://github.com/InEngine/Calendar |
 | **GoogleCalendarAdapter** | `…/InEngine/Modules/GoogleCalendarAdapter` | `../Modules/GoogleCalendarAdapter` | https://github.com/InEngine/GoogleCalendarAdapter |
 | **Alert** | `…/InEngine/Modules/Alert` | `../Modules/Alert` | https://github.com/InEngine/Alert |
-| **module-skeleton** | `…/InEngine/Modules/module-skeleton` | `../Modules/module-skeleton` | https://github.com/InEngine/module-skeleton — GitHub **template** only (not Packagist); issue #1 Step 4b |
+| **Skeleton** | `…/InEngine/Modules/Skeleton` | `../Modules/Skeleton` | https://github.com/InEngine/Skeleton — GitHub **template** only (not Packagist); issue #1 Step 4b |
+| **ModulusComposer** | `…/InEngine/Modules/ModulusComposer` | `../Modules/ModulusComposer` | https://github.com/InEngine/ModulusComposer — `inengine/modulus-composer` (Step 10; optional host require) |
 | **Documentation** | `…/InEngine/Documentation` | `../Documentation` | Design docs (`Plan and Design.md`), logos, premise |
 | **Provost** | `…/Provost/web` | `../../Provost/web` | https://github.com/excellentingenuity/Provost-Web — [Provost #4](https://github.com/users/excellentingenuity/projects/4) |
 | **LTC app (legacy)** | `…/LegacyTradeCollege/app` | `../../LegacyTradeCollege/app` | https://github.com/excellentingenuity/LegacyTradeCollege — [LTC #3](https://github.com/users/excellentingenuity/projects/3) |
@@ -23,7 +24,7 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 **Herd:** https://inengine.app  
 
-**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, module-skeleton, TableUI, Documentation.
+**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, ModulusComposer, Skeleton, TableUI, Documentation.
 
 **Cursor handoffs:** Every level above has `.cursor/SESSION_HANDOFF.md` (+ `session-handoff` rule). When switching roots, read that repo’s handoff.
 
@@ -47,11 +48,25 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 <!-- SESSION_LOG_START -->
 
+### 2026-11-19 — Step 10 ModulusComposer shipped; Skeleton rename
+
+- **Branches:** Core `dev`; Modulus `feat/modulus-state-store`; ModulusComposer `main`; Skeleton `main`.
+- **Done:** `inengine/modulus-composer` committed/pushed (Pest **28**, Pint, PHPStan; hooks/AGENTS/attribution rules). Skeleton renamed + attribution rules pushed. Modulus docs point `modulus:upgrade --approve` at `modulus-composer:approve`. PHPStorm roots for both.
+- **Next:** Optional Core path opt-in require of modulus-composer; marketplace/UI later; Step 11/13 as planned.
+- **Open questions:** Capability descriptor final shape; doctor substitution UX.
+
+### 2026-11-19 — Resume on this machine after Atlas; past Step 6
+
+- **Branches:** Core `dev`; Modulus `feat/modulus-state-store` (ff to `754dedd`).
+- **Done (since Atlas 11-17 handoff):** Steps **6–9 + 8b** on Modulus. Core Step 5/6/8b present.
+- **Next:** Step 10 (see newer entry).
+- **Open questions:** Capability descriptor; doctor substitution UX.
+
 ### 2026-11-17 — Modulus Step 6 on Atlas; Core config synced
 
 - **Branches:** Core `dev`; Modulus `feat/modulus-state-store` (Step 6 ready for review).
 - **Done:** Modulus Step 6 lifecycle + migrate-on-enable; publish on install; **`Modulus::seed(..., confirmed: true)`** only (skeleton confirming ModuleSeeder). Core `config/modulus.php` has `migrations` + `publish`. Suite: Modulus Pest **95** + PHPStan OK on Atlas.
-- **Next:** Review/commit Modulus Step 6 (+ skeleton stub) → Step 7 deps; Step 10 wires composer → publish.
+- **Next:** Review/commit Modulus Step 6 (+ skeleton stub) → Step 7 deps; Step 10 wires composer → publish. *(Superseded: 6–9 done; see 2026-11-19.)*
 - **Open questions:** Capability descriptor final shape; doctor substitution UX.
 
 ### 2026-11-03 — Checkpoint: Steps 0–5 + 4b done; next is Step 6

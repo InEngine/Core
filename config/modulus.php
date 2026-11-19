@@ -64,7 +64,7 @@ return [
     |
     | On enable and on version-bump upgrade while enabled, Modulus runs pending
     | migrations from each package's install path + this relative directory
-    | (Spatie / module-skeleton default: database/migrations).
+    | (Spatie / Skeleton default: database/migrations).
     |
     | Disable and forget/uninstall never migrate and never drop schema.
     | Module migrations should guard Schema::hasTable so re-enable after a

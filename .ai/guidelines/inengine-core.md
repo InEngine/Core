@@ -14,7 +14,7 @@ Opinionated modular Laravel host. Product features live in Modulus feature modul
 - Prefer `Modulus::…` / Artisan `modulus:*` (as commands land) over editing `storage/modulus/modules.json` by hand.
 - Install ≠ enable: require → `Modulus::publish()` → enable → optional confirmed seed.
 - Follow `inengine/modulus` Boost guidelines (package `resources/boost/guidelines/core.blade.php`) for lifecycle, deps, and events.
-- New feature modules: create from `InEngine/module-skeleton`, not hand-rolled providers.
+- New feature modules: create from `InEngine/Skeleton`, not hand-rolled providers.
 
 ## Quality
 

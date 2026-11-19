@@ -35,7 +35,7 @@ Opinionated modular Laravel host. Product features live in Modulus feature modul
 - Prefer `Modulus::…` / Artisan `modulus:*` (as commands land) over editing `storage/modulus/modules.json` by hand.
 - Install ≠ enable: require → `Modulus::publish()` → enable → optional confirmed seed.
 - Follow `inengine/modulus` Boost guidelines (package `resources/boost/guidelines/core.blade.php`) for lifecycle, deps, and events.
-- New feature modules: create from `InEngine/module-skeleton`, not hand-rolled providers.
+- New feature modules: create from `InEngine/Skeleton`, not hand-rolled providers.
 
 ## Quality
 
@@ -223,7 +223,7 @@ Prefer `InEngine\Modulus\Facades\Modulus` / `ModuleRepository` over touching the
 
 - Runtime: `inengine/modulus`
 - Extensions: `inengine/modulus-{role}` only (`composer`, `marketplace`, `ui`, `inspect`) — never fold Composer hooks or operator UI into this package
-- Feature modules: `inengine/{feature}` from `InEngine/module-skeleton` — never `modulus-*`
+- Feature modules: `inengine/{feature}` from `InEngine/Skeleton` — never `modulus-*`
 
 ### Feature modules
 
@@ -246,6 +246,22 @@ Prefer `InEngine\Modulus\Facades\Modulus` / `ModuleRepository` over touching the
 - Peers/host: listen to `InEngine\Modulus\Events\*` (`ModuleEnabled`, `ModuleDisabled`, `ModuleForgotten`, `ModuleUpgraded`, `ModuleRegistered`, `ModulePublished`, `ModuleSeeded`). Payload often includes `ModuleStateData`.
 - Cross-module APIs: PHP interfaces + readonly DTOs, bound in the Laravel container when the providing module is enabled. No custom plugin registry.
 - Author detail: package `INTEGRATION.md`.
+
+### Artisan (Step 9)
+
+- `modulus:list`, `discover`, `enable`, `disable`, `uninstall`, `status`, `publish`, `seed`, `upgrade`, `outdated`, `update`, `doctor`
+- `modulus:upgrade` applies the *installed* Composer version (migrate/hooks); `--publish` republishes assets; `--approve=` messages constraint bump (modulus-composer / UI rewrites `composer.json`)
+- `modulus:outdated` / `modulus:update` check Packagist via Composer; dispatch `ModuleUpdateAvailable` for modulus-ui; `--auto` applies patch-within-constraint when `modulus.updates.auto_patch` and a real `ModuleUpdateApplier` are bound
+- `modulus:doctor` exits non-zero when enabled packages are missing; findings (incl. `update_available`) feed modulus-ui
+
+### Upgrades & SemVer policy
+
+- Default host constraint style: **patch** → `~x.y.z` (same minor only) via `modulus.upgrades.default_constraint`
+- Enabled modules auto-apply installed version on handshake when `auto_apply_installed` is true
+- Available updates: listen to `ModuleUpdateAvailable` or poll doctor / `modulus:outdated` in CLI and UI
+- Optional auto-patch: `modulus.updates.auto_patch=true` + modulus-composer applier; minor/major still need approval
+- Minor/major bumps require operator approval (CLI/UI) — never silent Composer constraint widening
+- Override `modulusManualAttentionItems()` for post-upgrade checklists; dispatches `ModuleManualAttentionRequired` for modulus-ui
 
 ### Host wiring (Core)
 
