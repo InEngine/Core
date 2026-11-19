@@ -4,6 +4,10 @@ All notable changes to InEngine Core will be documented in this file.
 
 ## Unreleased
 
+### Changed
+
+- Add MIT `LICENSE.txt` (Core remains MIT)
+
 ### Docs
 
 - User-facing documentation under `docs/` (Getting started, architecture, local modules, Modulus host, development, related packages) for GitHub Pages

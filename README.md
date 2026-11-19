@@ -39,4 +39,4 @@ Semantic versioning. Merges into `master`/`main` trigger a version bump and GitH
 
 ## License
 
-MIT.
+The MIT License (MIT). See [LICENSE.txt](LICENSE.txt).
