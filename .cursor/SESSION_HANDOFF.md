@@ -48,6 +48,13 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 <!-- SESSION_LOG_START -->
 
+### 2026-11-19 — Licensing split locked
+
+- **Branches:** Core `dev`; Modulus `feat/modulus-state-store`; ModulusComposer `main`; Skeleton `main`.
+- **Done:** Core / Modulus / Modulus Composer / Skeleton → **MIT**. Docs + DESIGN record: **`modulus-ui` = private Pro**; **Innkeeper = unreleased source**.
+- **Next:** Marketplace later; private Pro UI when ready; keep Pro code out of MIT packages.
+- **Open questions:** Commercial license text for `modulus-ui` when scaffolded.
+
 ### 2026-11-19 — Step 10 ModulusComposer shipped; Skeleton rename
 
 - **Branches:** Core `dev`; Modulus `feat/modulus-state-store`; ModulusComposer `main`; Skeleton `main`.

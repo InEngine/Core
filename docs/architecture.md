@@ -9,7 +9,8 @@ Core is a **thin host**. Product features belong in Modulus feature modules, not
 | **Core** (`inengine/core`) | Laravel shell, Livewire, Tailwind, host wiring for Modulus |
 | **Modulus** (`inengine/modulus`) | Enable/disable, discovery filter, lifecycle, `modulus:*` Artisan |
 | **Feature modules** (`inengine/{feature}`) | Product capabilities from [Skeleton](https://github.com/InEngine/Skeleton) |
-| **Extensions** (`inengine/modulus-*`) | Optional runtime tools (Composer client, marketplace, UI, …) |
+| **Extensions** (`inengine/modulus-*`) | Optional runtime tools (Composer client public MIT; **`modulus-ui` private Pro**; marketplace/inspect planned) |
+| **Products** (e.g. Innkeeper) | App products on Core — Innkeeper is **unreleased source** (not public yet) |
 
 ## Rules of thumb
 
