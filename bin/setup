@@ -1,0 +1,194 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Post-install / clone setup for InEngine Core.
+ *
+ * Use after `composer create-project` (empty dir) or `git clone` + `composer install`
+ * (including when the target already has a git repo — create-project cannot use a
+ * non-empty directory).
+ *
+ *   php bin/setup
+ *   php bin/setup --no-interaction --env=local --name="My App" --url=http://core.test
+ */
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+chdir($root);
+
+/**
+ * @return array{interactive: bool, env: string, name: string, url: string, node: bool, migrate: bool, localComposer: bool, gitInit: bool}
+ */
+function parseSetupArgs(array $argv): array
+{
+    $opts = [
+        'interactive' => true,
+        'env' => 'local',
+        'name' => 'InEngine Core',
+        'url' => 'http://localhost',
+        'node' => true,
+        'migrate' => true,
+        'localComposer' => false,
+        'gitInit' => false,
+    ];
+
+    foreach (array_slice($argv, 1) as $arg) {
+        if ($arg === '--no-interaction' || $arg === '-n') {
+            $opts['interactive'] = false;
+        } elseif ($arg === '--no-node') {
+            $opts['node'] = false;
+        } elseif ($arg === '--no-migrate') {
+            $opts['migrate'] = false;
+        } elseif ($arg === '--with-composer-local') {
+            $opts['localComposer'] = true;
+        } elseif ($arg === '--git-init') {
+            $opts['gitInit'] = true;
+        } elseif (str_starts_with($arg, '--env=')) {
+            $opts['env'] = substr($arg, 6);
+        } elseif (str_starts_with($arg, '--name=')) {
+            $opts['name'] = substr($arg, 7);
+        } elseif (str_starts_with($arg, '--url=')) {
+            $opts['url'] = substr($arg, 6);
+        } elseif ($arg === '--help' || $arg === '-h') {
+            fwrite(STDOUT, <<<'HELP'
+InEngine Core setup
+
+  php bin/setup [options]
+
+Options:
+  --no-interaction, -n     Use flags/defaults only
+  --env=local|staging|production
+  --name="App Name"
+  --url=http://localhost
+  --no-node                Skip npm ci / build
+  --no-migrate             Skip php artisan migrate
+  --with-composer-local    Copy composer.local.dist.json (monorepo path *@dev)
+  --git-init               git init if .git is missing
+
+HELP);
+            exit(0);
+        }
+    }
+
+    return $opts;
+}
+
+function ask(string $question, string $default = ''): string
+{
+    $prompt = $default !== '' ? "{$question} [{$default}]: " : "{$question}: ";
+    $answer = readline($prompt);
+
+    if ($answer === false || $answer === '') {
+        return $default;
+    }
+
+    return $answer;
+}
+
+function confirm(string $question, bool $default = false): bool
+{
+    $hint = $default ? 'Y/n' : 'y/N';
+    $answer = strtolower(ask("{$question} ({$hint})", $default ? 'y' : 'n'));
+
+    return in_array($answer, ['y', 'yes'], true);
+}
+
+function run(string $command): int
+{
+    fwrite(STDOUT, "→ {$command}\n");
+    passthru($command, $code);
+
+    return $code;
+}
+
+function setEnvValue(string $path, string $key, string $value): void
+{
+    $contents = file_get_contents($path);
+    if ($contents === false) {
+        throw new RuntimeException("Unable to read {$path}");
+    }
+
+    $line = $key.'='.$value;
+    if (preg_match("/^{$key}=.*/m", $contents) === 1) {
+        $contents = preg_replace("/^{$key}=.*/m", $line, $contents) ?? $contents;
+    } else {
+        $contents = rtrim($contents).PHP_EOL.$line.PHP_EOL;
+    }
+
+    file_put_contents($path, $contents);
+}
+
+$opts = parseSetupArgs($argv);
+
+fwrite(STDOUT, "InEngine Core setup\n\n");
+
+if ($opts['interactive']) {
+    $opts['name'] = ask('Application name', $opts['name']);
+    $opts['env'] = ask('APP_ENV (local/staging/production)', $opts['env']);
+    $opts['url'] = ask('APP_URL', $opts['url']);
+    $opts['node'] = confirm('Install and build frontend (npm)?', $opts['node']);
+    $opts['migrate'] = confirm('Run migrations?', $opts['migrate']);
+    $opts['localComposer'] = confirm('Enable monorepo composer.local.json (path *@dev)?', false);
+    if (! is_dir($root.'/.git')) {
+        $opts['gitInit'] = confirm('Initialize a new git repository?', true);
+    }
+}
+
+if (! is_dir($root.'/.git') && $opts['gitInit']) {
+    run('git init');
+}
+
+if (! is_file($root.'/.env')) {
+    if (! is_file($root.'/.env.example')) {
+        fwrite(STDERR, "Missing .env.example\n");
+        exit(1);
+    }
+    copy($root.'/.env.example', $root.'/.env');
+    fwrite(STDOUT, "Created .env from .env.example\n");
+}
+
+setEnvValue($root.'/.env', 'APP_NAME', '"'.str_replace('"', '\\"', $opts['name']).'"');
+setEnvValue($root.'/.env', 'APP_ENV', $opts['env']);
+setEnvValue($root.'/.env', 'APP_URL', $opts['url']);
+
+if ($opts['env'] === 'production') {
+    setEnvValue($root.'/.env', 'APP_DEBUG', 'false');
+} elseif ($opts['env'] === 'local') {
+    setEnvValue($root.'/.env', 'APP_DEBUG', 'true');
+}
+
+if ($opts['localComposer'] && ! is_file($root.'/composer.local.json') && is_file($root.'/composer.local.dist.json')) {
+    copy($root.'/composer.local.dist.json', $root.'/composer.local.json');
+    fwrite(STDOUT, "Created composer.local.json from dist (gitignored path *@dev)\n");
+    run('composer update inengine/modulus inengine/modulus-composer --no-interaction');
+}
+
+$envContents = (string) file_get_contents($root.'/.env');
+if (! preg_match('/^APP_KEY=base64:.+/m', $envContents)) {
+    if (run('php artisan key:generate --ansi --force') !== 0) {
+        exit(1);
+    }
+}
+
+if ($opts['migrate']) {
+    run('php artisan migrate --force --ansi');
+}
+
+if ($opts['node']) {
+    if (is_file($root.'/package-lock.json')) {
+        run('npm ci');
+    } else {
+        run('npm install');
+    }
+    run('npm run build');
+}
+
+fwrite(STDOUT, "\nSetup complete.\n");
+fwrite(STDOUT, "  Modulus: php artisan modulus:list\n");
+fwrite(STDOUT, "  Doctor:  php artisan modulus:doctor\n");
+if (! $opts['localComposer']) {
+    fwrite(STDOUT, "  Packages resolve from Packagist (^0.1@beta). For monorepo path develop, re-run with --with-composer-local.\n");
+}
+fwrite(STDOUT, "\n");
+exit(0);

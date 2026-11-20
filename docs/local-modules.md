@@ -9,7 +9,7 @@ InEngine/
     Modulus/
     ModulusComposer/
     Skeleton/          # template source; not required via Composer as "skeleton"
-    Alert/             # example feature, when present
+    Alert/             # Step 13 pilot feature module
 ```
 
 ## Path repos
@@ -18,9 +18,10 @@ InEngine/
 
 ```bash
 cp composer.local.dist.json composer.local.json
+# or: php bin/setup --with-composer-local
 ```
 
-2. Dist content registers path repositories **and** overrides Modulus to `*@dev`:
+2. Dist content registers path repositories **and** overrides Packagist constraints to `*@dev`:
 
 ```json
 {
@@ -32,31 +33,30 @@ cp composer.local.dist.json composer.local.json
     }
   ],
   "require": {
-    "inengine/modulus": "*@dev"
-  }
-}
-```
-
-The Wikimedia merge plugin merges `composer.local.json` into the root Composer config. Core currently requires `inengine/modulus` `*@dev` (path/VCS). After an intentional Packagist release, switch the root constraint to `^0.1` and keep path `*@dev` only in `composer.local.json`.
-
-## Production / release
-
-Remove `composer.local.json` before deploy or create-project packaging. The Core release workflow strips it so production never accidentally path-resolves sibling Modules.
-
-## Optional: Modulus Composer
-
-To exercise Composer I/O from Artisan locally, add to `composer.local.json` (not the shared `composer.json` require):
-
-```json
-{
-  "require": {
+    "inengine/modulus": "*@dev",
     "inengine/modulus-composer": "*@dev"
   }
 }
 ```
 
-Then `composer update inengine/modulus-composer`.
+The Wikimedia merge plugin merges `composer.local.json` with `"replace": true` so path `*@dev` replaces root `^0.1@beta` for those packages. Path packages use `extra.branch-alias` `dev-main` → `0.1.x-dev` so dependents that require `^0.1@beta || 0.1.x-dev` still resolve.
 
-## CI
+**Without** `composer.local.json`, Core resolves Modulus + Modulus Composer from Packagist (`^0.1@beta`).
 
-GitHub Actions checks out Modulus beside Core and writes an equivalent path `composer.local.json`. Private sibling repos use the org `INENGINE_CI_TOKEN` secret when needed.
+**Production / release:** do **not** ship `composer.local.json`.
+
+## Install flows
+
+| Situation | Command |
+|-----------|---------|
+| Empty directory | `composer create-project …` then `php bin/setup` (also runs from `post-create-project-cmd`) |
+| Existing git / non-empty | `composer install` then `php bin/setup` — create-project cannot use a non-empty dir |
+
+## Feature modules on Core
+
+```bash
+# path monorepo
+composer require inengine/alert:@dev
+php artisan modulus:discover
+php artisan modulus:enable inengine/alert
+```

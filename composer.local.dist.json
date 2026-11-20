@@ -9,6 +9,8 @@
         }
     ],
     "require": {
-        "inengine/modulus": "*@dev"
+        "inengine/modulus": "*@dev",
+        "inengine/modulus-composer": "*@dev",
+        "inengine/alert": "@dev"
     }
 }

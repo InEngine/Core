@@ -14,7 +14,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.5",
-        "inengine/modulus": "*@dev",
+        "inengine/modulus": "^0.1@beta",
+        "inengine/modulus-composer": "^0.1@beta",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.4"
@@ -94,7 +95,8 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
+            "@php artisan migrate --graceful --ansi",
+            "@php bin/setup --no-interaction --no-migrate"
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
@@ -107,7 +109,9 @@
         "merge-plugin": {
             "include": [
                 "composer.local.json"
-            ]
+            ],
+            "replace": true,
+            "merge-extra": true
         }
     },
     "config": {

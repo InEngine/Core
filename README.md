@@ -19,34 +19,55 @@ Built on **[Laravel](https://laravel.com)** (MIT). InEngine Core is a specialize
 |-------|-----------------|
 | **Framework** | `laravel/framework` ^13, PHP ^8.5, `laravel/tinker` |
 | **UI runtime (for modules/products)** | Livewire 4, Tailwind CSS (Vite) — Core itself only ships a splash page |
-| **Module runtime** | **[`inengine/modulus`](https://github.com/InEngine/Modulus)** (required, `*@dev` until Packagist release) — enable/disable, discovery gating, lifecycle, `modulus:*` |
-| **Composer client (opt-in)** | **[Modulus Composer](https://github.com/InEngine/Modulus-Composer)** (`inengine/modulus-composer`) — require/remove/update/approve; **not** hard-required by Core |
+| **Module runtime** | **[`inengine/modulus`](https://github.com/InEngine/Modulus)** (required, `^0.1@beta`) — enable/disable, discovery gating, lifecycle, `modulus:*` |
+| **Composer client** | **[Modulus Composer](https://github.com/InEngine/Modulus-Composer)** (`inengine/modulus-composer`, `^0.1@beta`) — require/remove/update/approve |
 | **require-dev** | Laravel Debugbar, Laravel Boost, IDE Helper, Pest (+ plugins), Pint, Larastan, Ignition, Pail, … |
 
 **Licensing:** Core, Modulus, Modulus Composer, and [Skeleton](https://github.com/InEngine/Skeleton) are **MIT**. `modulus-ui` will be **private Pro**.
 
 ## Quick start
 
+**Greenfield (empty directory):**
+
 ```bash
-composer run setup
+composer create-project inengine/core:^0.1@beta my-app   # when Core is on Packagist
+# or clone this repo into an empty dir, then:
+composer install
+php bin/setup
 composer run dev
 ```
 
-Default `/` is a splash page (“InEngine Core · built on Laravel”) with links to GitHub and the site. No product UI ships in Core.
+**Already a git repo / non-empty dir:** Composer `create-project` cannot target it. Clone or checkout Core, then:
 
-Herd: [https://inengine.app](https://inengine.app)
+```bash
+composer install
+php bin/setup                 # interactive: name, APP_ENV, URL, npm, migrate, optional git init
+# php bin/setup --no-interaction --env=local --url=http://core.test
+```
+
+Monorepo path develop: `php bin/setup --with-composer-local` (or copy `composer.local.dist.json`).
+
+Default `/` is a splash page. Herd: [https://inengine.app](https://inengine.app)
 
 ## Modulus on Core
 
 Early `PackageManifestInstaller` in `bootstrap/app.php` so discovery gating works before feature providers load. Day-to-day: `modulus:*` Artisan — [Modulus host](docs/modulus.md).
 
-**Install ≠ enable ≠ seed.** Acquire packages with Composer (or **Modulus Composer** when opted in), then `modulus:enable`.
+**Install ≠ enable ≠ seed.** Acquire with Composer / `modulus-composer:*`, then `modulus:enable`.
 
 ## Local modules
 
-Copy `composer.local.dist.json` → `composer.local.json` (gitignored). Path repos + `inengine/modulus` `*@dev` via the merge plugin. Root also requires `*@dev` until Packagist; switch published Core to `^0.1` on intentional release.
+Copy `composer.local.dist.json` → `composer.local.json` (gitignored). Path `*@dev` for Modulus + Modulus Composer (merge-plugin `replace`). Published root constraints stay `^0.1@beta`.
 
-**Production / release:** do **not** ship `composer.local.json` (release workflow strips it). Keep it for local/dev.
+**Production / release:** do **not** ship `composer.local.json` (release workflow strips it).
+
+## Upstream (Laravel)
+
+Core is a specialized host on top of Laravel. To pull framework-app skeleton changes:
+
+```bash
+./scripts/sync-upstream-laravel.sh
+```
 
 See [Local modules](docs/local-modules.md).
 
