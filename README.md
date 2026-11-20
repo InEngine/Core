@@ -18,7 +18,7 @@ Built on **[Laravel](https://laravel.com)** (MIT). InEngine Core is a specialize
 |-------|-----------------|
 | **Framework** | `laravel/framework` ^13, PHP ^8.5, `laravel/tinker` |
 | **UI runtime (for modules/products)** | Livewire 4, Tailwind CSS (Vite) — Core itself only ships a splash page |
-| **Module runtime** | **[`inengine/modulus`](https://github.com/InEngine/Modulus)** (required) — enable/disable, discovery gating, lifecycle, `modulus:*` |
+| **Module runtime** | **[`inengine/modulus`](https://github.com/InEngine/Modulus)** (required, `*@dev` until Packagist release) — enable/disable, discovery gating, lifecycle, `modulus:*` |
 | **Composer client (opt-in)** | **[Modulus Composer](https://github.com/InEngine/Modulus-Composer)** (`inengine/modulus-composer`) — require/remove/update/approve; **not** hard-required by Core |
 | **require-dev** | Laravel Debugbar, Laravel Boost, IDE Helper, Pest (+ plugins), Pint, Larastan, Ignition, Pail, … |
 
@@ -43,7 +43,7 @@ Early `PackageManifestInstaller` in `bootstrap/app.php` so discovery gating work
 
 ## Local modules
 
-Copy `composer.local.dist.json` → `composer.local.json` (gitignored). Path repos + `inengine/modulus` `*@dev` via the merge plugin. Published Core requires `inengine/modulus` `^0.1` from Packagist.
+Copy `composer.local.dist.json` → `composer.local.json` (gitignored). Path repos + `inengine/modulus` `*@dev` via the merge plugin. Root also requires `*@dev` until Packagist; switch published Core to `^0.1` on intentional release.
 
 **Production / release:** do **not** ship `composer.local.json` (release workflow strips it). Keep it for local/dev.
 

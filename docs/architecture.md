@@ -22,7 +22,7 @@ Built on **[Laravel](https://laravel.com)**. Core does not replace Laravel; it c
 
 - `laravel/framework`, `laravel/tinker`
 - `livewire/livewire` (for modules/products; Core ships no Livewire screens)
-- `inengine/modulus` `^0.1`
+- `inengine/modulus` `*@dev` (until Packagist `^0.1`)
 
 **require-dev (selected)**
 

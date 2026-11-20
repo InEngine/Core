@@ -37,7 +37,7 @@ cp composer.local.dist.json composer.local.json
 }
 ```
 
-The Wikimedia merge plugin merges `composer.local.json` into the root Composer config. Published Core requires `inengine/modulus` `^0.1` from Packagist; local/CI path `*@dev` only when `composer.local.json` exists.
+The Wikimedia merge plugin merges `composer.local.json` into the root Composer config. Core currently requires `inengine/modulus` `*@dev` (path/VCS). After an intentional Packagist release, switch the root constraint to `^0.1` and keep path `*@dev` only in `composer.local.json`.
 
 ## Production / release
 
