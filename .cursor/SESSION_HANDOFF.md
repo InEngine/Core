@@ -47,6 +47,11 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 <!-- SESSION_LOG_START -->
 
+### 2026-11-20 — Deferred: configurable flows without custom modules
+
+- **Later (think about, do not solve now):** Admin-defined processes (onboarding, recruiting, biz/process management) that compose User / Person / Alert / auth companions via capabilities — **not** a custom module per customer flow. Notes: User `IDENTITY_ARCHITECTURE.md`, Documentation Plan “Deferred research”, User session handoff.
+- **Next:** Continue User hub / Registry Step 14 when ready; merge open `dev`→`main` PRs as needed.
+
 ### 2026-11-19 — Step 11 start: splash Core + public Modulus packages
 
 - **Done:** Core splash-only UI; require modulus `^0.1`; release strips `composer.local.json`. Modulus + Modulus-Composer **public**, `v0.1.0` tagged/released. Packagist checklist in Documentation/Packagist.md.
