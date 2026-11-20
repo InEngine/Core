@@ -42,36 +42,44 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+          # Stay on 0.1.0-beta.N until we deliberately cut a stable release.
+          # First merge → v0.1.0-beta.1; later merges increment the beta patch.
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
           if [ -z "$LAST_TAG" ]; then
-            RANGE=""
-            CURRENT="0.1.0"
+            NEXT="0.1.0-beta.1"
+            BUMP="beta"
+          elif [[ "${LAST_TAG#v}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)-beta\.([0-9]+)$ ]]; then
+            NEXT="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.$((BASH_REMATCH[4] + 1))"
+            BUMP="beta"
           else
-            RANGE="${LAST_TAG}..HEAD"
             CURRENT="${LAST_TAG#v}"
+            RANGE="${LAST_TAG}..HEAD"
+            COMMITS=$(git log --pretty=%s ${RANGE} 2>/dev/null || true)
+            BUMP="patch"
+            if echo "$COMMITS" | grep -Eiq '^(feat|fix)(\(.+\))?!:|BREAKING CHANGE'; then
+              BUMP="major"
+            elif echo "$COMMITS" | grep -Eiq '^feat(\(.+\))?:'; then
+              BUMP="minor"
+            fi
+            IFS=. read -r MAJOR MINOR PATCH <<< "$CURRENT"
+            MAJOR=${MAJOR:-0}
+            MINOR=${MINOR:-1}
+            PATCH=${PATCH:-0}
+            case "$BUMP" in
+              major) MAJOR=$((MAJOR+1)); MINOR=0; PATCH=0 ;;
+              minor) MINOR=$((MINOR+1)); PATCH=0 ;;
+              patch) PATCH=$((PATCH+1)) ;;
+            esac
+            NEXT="${MAJOR}.${MINOR}.${PATCH}"
           fi
-
-          COMMITS=$(git log --pretty=%s ${RANGE} 2>/dev/null || true)
-          BUMP="patch"
-          if echo "$COMMITS" | grep -Eiq '^(feat|fix)(\(.+\))?!:|BREAKING CHANGE'; then
-            BUMP="major"
-          elif echo "$COMMITS" | grep -Eiq '^feat(\(.+\))?:'; then
-            BUMP="minor"
+          PRERELEASE=false
+          if [[ "$NEXT" == *-beta.* ]]; then
+            PRERELEASE=true
           fi
-
-          IFS=. read -r MAJOR MINOR PATCH <<< "$CURRENT"
-          MAJOR=${MAJOR:-0}
-          MINOR=${MINOR:-1}
-          PATCH=${PATCH:-0}
-          case "$BUMP" in
-            major) MAJOR=$((MAJOR+1)); MINOR=0; PATCH=0 ;;
-            minor) MINOR=$((MINOR+1)); PATCH=0 ;;
-            patch) PATCH=$((PATCH+1)) ;;
-          esac
-          NEXT="${MAJOR}.${MINOR}.${PATCH}"
           echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
           echo "version=$NEXT" >> "$GITHUB_OUTPUT"
           echo "tag=v${NEXT}" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$PRERELEASE" >> "$GITHUB_OUTPUT"
           echo "Resolved next version: v${NEXT} ($BUMP)"
 
       - name: Build release notes
@@ -129,3 +137,4 @@ jobs:
           name: ${{ steps.bump.outputs.tag }}
           body: ${{ steps.notes.outputs.body }}
           generate_release_notes: true
+          prerelease: ${{ steps.bump.outputs.prerelease == 'true' }}

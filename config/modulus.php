@@ -31,7 +31,7 @@ return [
     | (e.g. hostile power-loss environments); most hosts should leave this false.
     |
     */
-    'state_path' => storage_path('modulus/modules.json'),
+    'state_path' => env('MODULUS_STATE_PATH') ?: storage_path('modulus/modules.json'),
 
     'state_fsync' => false,
 

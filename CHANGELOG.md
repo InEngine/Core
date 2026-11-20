@@ -4,11 +4,20 @@ All notable changes to InEngine Core will be documented in this file.
 
 ## Unreleased
 
+## 0.1.0-beta.1 - 2026-11-20
+
+### Added
+
+- First public beta (GitHub Releases); Modulus host with Packagist `^0.1@beta` for modulus + modulus-composer
+- `bin/setup` + create-project wiring; Laravel upstream sync script
+- Host integration tests for disabled `inengine/alert` (no provider/config/Artisan on boot)
+
 ### Changed
 
 - Splash-only UI: replace Laravel welcome with InEngine Core splash (GitHub / website / Modulus links)
-- Require `inengine/modulus` `^0.1` for Packagist; local/CI keep path `*@dev` via `composer.local.json`
-- Release workflow strips `composer.local.json` before tagging
+- CI resolves Modulus from Packagist betas (no path in CI); `composer.lock` gitignored like feature packages
+- `MODULUS_STATE_PATH` env override for isolated Modulus state in tests
+- Release workflow strips `composer.local.json` before tagging; stays on `0.1.0-beta.N` until stable
 - Add MIT `LICENSE.txt` (Core remains MIT)
 
 ### Docs
