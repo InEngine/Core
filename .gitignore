@@ -27,5 +27,7 @@ yarn-error.log
 _ide_helper.php
 _ide_helper_models.php
 composer.local.json
+composer.local.dist.json
 composer.lock
+package-lock.json
 /Modules/*

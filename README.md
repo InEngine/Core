@@ -47,7 +47,7 @@ php bin/setup                 # interactive: name, APP_ENV, URL, npm, migrate, o
 
 Monorepo path develop: `php bin/setup --with-composer-local` (or copy `composer.local.dist.json`).
 
-Default `/` is a splash page. Herd: [https://inengine.app](https://inengine.app)
+Default `/` is a splash page.
 
 ## Modulus on Core
 
