@@ -2,6 +2,7 @@
 
 [![Tests](https://img.shields.io/github/actions/workflow/status/InEngine/Core/tests.yml?branch=dev&label=tests&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3Atests+branch%3Adev)
 [![PHPStan](https://img.shields.io/github/actions/workflow/status/InEngine/Core/phpstan.yml?branch=dev&label=phpstan&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3Aphpstan+branch%3Adev)
+[![Pint](https://img.shields.io/github/actions/workflow/status/InEngine/Core/fix-php-code-style-issues.yml?branch=dev&label=pint&style=flat-square)](https://github.com/InEngine/Core/actions?query=workflow%3A%22Fix+PHP+code+style+issues%22+branch%3Adev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 
 **InEngine Core** is an **opinionated Laravel-based modular application builder framework**. Product and custom apps start from this host shell and grow through [Modulus](https://github.com/InEngine/Modulus)-compatible feature modules — not by stuffing product code into `App\` by default.
