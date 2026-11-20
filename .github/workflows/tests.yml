@@ -27,13 +27,6 @@ jobs:
       - name: Checkout Core
         uses: actions/checkout@v4
 
-      - name: Checkout Modulus (local path for *@dev)
-        uses: actions/checkout@v4
-        with:
-          repository: InEngine/Modulus
-          ref: main
-          path: Modules/Modulus
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -47,15 +40,9 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Enable CI path repository for Modulus
-        run: |
-          # Register path before first update (merge-plugin is not available yet).
-          # Do not write composer.local.json here — that triggers a merge-plugin
-          # re-update that runs post-update scripts before APP_KEY exists.
-          composer config repositories.modulus '{"type":"path","url":"Modules/Modulus","options":{"symlink":true}}'
-
       - name: Install Composer dependencies
         run: |
+          # Packagist betas (^0.1@beta). Path *@dev is local-only via composer.local.json.
           # Skip scripts until APP_KEY exists (package:discover / ide-helper / boost need it).
           composer update --no-interaction --prefer-dist --no-scripts
           cp .env.example .env
