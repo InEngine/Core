@@ -1,0 +1,14 @@
+---
+description: Enforce PHP 8.5 and coding/testing standards for InEngine Core and local Modules packages
+alwaysApply: true
+---
+
+# InEngine Core — PHP and package standards
+
+- For InEngine Core and packages in `../Modules/*`, use PHP `^8.5`.
+- Follow PSR standards and Laravel/PHP community style guides.
+- Use Laravel Pint for formatting PHP changes.
+- Test every code change with Pest (smallest relevant scope first, then broader suite when needed).
+- Keep package `composer.json` constraints aligned with Core when compatibility allows.
+- Prefer Modulus-compatible modules over app-local feature code for reusable capabilities.
+- User/auth belongs in a future Users module — do not reintroduce default Laravel `User` into Core.

@@ -1,0 +1,10 @@
+title: InEngine Core
+description: Opinionated modular Laravel host for InEngine products and Modulus feature modules
+remote_theme: pages-themes/primer@v0.6.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+markdown: kramdown

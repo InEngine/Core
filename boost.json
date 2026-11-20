@@ -1,0 +1,23 @@
+{
+    "agents": [
+        "cursor"
+    ],
+    "cloud": false,
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch_mcp": false,
+    "packages": [
+        "barryvdh/laravel-debugbar",
+        "inengine/modulus"
+    ],
+    "sail": false,
+    "skills": [
+        "infer-conventions",
+        "laravel-best-practices",
+        "testing-best-practices",
+        "livewire-development",
+        "tailwindcss-development",
+        "modulus-modules",
+        "debug-using-debugbar"
+    ]
+}

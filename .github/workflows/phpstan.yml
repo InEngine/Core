@@ -1,0 +1,56 @@
+name: PHPStan
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+      - main
+    paths:
+      - '**.php'
+      - 'phpstan.neon'
+      - 'composer.json'
+      - 'composer.lock'
+      - '.github/workflows/phpstan.yml'
+  pull_request:
+    paths:
+      - '**.php'
+      - 'phpstan.neon'
+      - 'composer.json'
+      - 'composer.lock'
+      - '.github/workflows/phpstan.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpstan:
+    name: phpstan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Core
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_mysql, bcmath, intl, fileinfo
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        run: |
+          # Packagist betas (^0.1@beta). Path *@dev is local-only via composer.local.json.
+          composer update --no-interaction --prefer-dist --no-scripts
+          cp .env.example .env
+          php -r '$e=file_get_contents(".env"); $k="base64:".base64_encode(random_bytes(32)); file_put_contents(".env", preg_replace("/^APP_KEY=.*/m", "APP_KEY=".$k, $e));'
+          composer dump-autoload --optimize
+          php artisan package:discover --ansi
+
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G --error-format=github
