@@ -47,6 +47,18 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 <!-- SESSION_LOG_START -->
 
+### 2026-11-21 — Step 14 Capability Registry in progress
+
+- **Branch (Modulus):** `feat/step-14-capability-registry`
+- **Done:** In-core Registry implementation started (state capabilities, query API, `modulus:capabilities`); Plan/DESIGN/STEP-14 docs updated (inspect is not system of record).
+- **Deferred (unchanged):** configurable flows; optional DB/UI fields + safety + UI caching — User `IDENTITY_ARCHITECTURE.md` / Plan deferred research.
+- **Next:** Finish Step 14 PR on Modulus; then User hub implementation; merge open `dev`→`main` PRs as needed.
+
+### 2026-11-20 — Deferred: configurable flows without custom modules
+
+- **Later (think about, do not solve now):** Admin-defined processes (onboarding, recruiting, biz/process management) that compose User / Person / Alert / auth companions via capabilities — **not** a custom module per customer flow. Same theme: **optional DB/UI fields** (required vs optional / capability-gated) without forked schemas per customer. Constraints when designed: **safety** on dynamic/optional forms (SQL injection, allowlisted field keys) and **UI caching** until form/UI element (or gated field set) changes. Notes: User `IDENTITY_ARCHITECTURE.md`, Documentation Plan “Deferred research”, User session handoff.
+- **Next:** Continue User hub / Registry Step 14 when ready; merge open `dev`→`main` PRs as needed.
+
 ### 2026-11-19 — Step 11 start: splash Core + public Modulus packages
 
 - **Done:** Core splash-only UI; require modulus `^0.1`; release strips `composer.local.json`. Modulus + Modulus-Composer **public**, `v0.1.0` tagged/released. Packagist checklist in Documentation/Packagist.md.

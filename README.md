@@ -47,7 +47,7 @@ php bin/setup                 # interactive: name, APP_ENV, URL, npm, migrate, o
 
 Monorepo path develop: `php bin/setup --with-composer-local` (or copy `composer.local.dist.json`).
 
-Default `/` is a splash page. Herd: [https://inengine.app](https://inengine.app)
+Default `/` is a splash page.
 
 ## Modulus on Core
 
@@ -87,4 +87,6 @@ Semantic versioning. Merges into `master`/`main` trigger a version bump and GitH
 
 ## License
 
-The MIT License (MIT). See [LICENSE.txt](LICENSE.txt). Laravel and other dependencies retain their own licenses.
+The MIT License (MIT). See [LICENSE.txt](LICENSE.txt).
+
+Copyright © 2026 Excellent Ingenuity, LLC / InEngine. This copyright applies only to original InEngine source code, documentation, and branding assets (including logos and other graphics) created by Excellent Ingenuity, LLC / InEngine. It does not claim ownership of Laravel or any other third-party frameworks, libraries, or packages distributed with or used by InEngine; those remain the property of their respective owners and are governed by their own licenses.

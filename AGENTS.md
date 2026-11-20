@@ -13,6 +13,12 @@ Modular Laravel host (PHP 8.5, Laravel 13). Product features belong in Modulus m
 
 - User docs (GitHub Pages): `docs/`
 
+## Git
+
+- Work on **`dev`**; open a PR into **`master`** (never land feature work straight on `master`).
+- Same pattern for all InEngine packages: **`dev` → `main`** (or `master` where that is the release branch). See Documentation `Git workflow.md`.
+- Commits: author **James Johnson** `<james.johnson@excellentingenuity.com>` — no Cursor / agent co-authors or AI mentions in commits or PRs.
+
 ## InEngine / Modulus
 
 - Follow `.ai/guidelines/inengine-core.md` and the `modulus-modules` skill when touching modules.
