@@ -1,6 +1,18 @@
 The MIT License (MIT)
 
-Copyright (c) 2026 Excellent Ingenuity, LLC
+Copyright (c) 2026 Excellent Ingenuity, LLC / InEngine
+
+Copyright Notice
+----------------
+
+This copyright notice applies only to original InEngine source code,
+documentation, and branding assets (including logos and other graphics)
+created by Excellent Ingenuity, LLC / InEngine.
+
+It does not claim ownership of Laravel or any other third-party
+frameworks, libraries, or packages distributed with or used by
+InEngine. Those components remain the property of their respective
+owners and are governed by their own licenses.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

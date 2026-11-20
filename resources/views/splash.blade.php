@@ -181,8 +181,8 @@
         </div>
     </main>
     <footer>
-        InEngine is copyrighted by Excellent InGenuity LLC 2026.<br />
-        Laravel and all other packages used by InEngine are the copyrighted property of their respective owners.
+        © 2026 Excellent InGenuity LLC. InEngine code &amp; branding — all rights reserved; see LICENSE.<br />
+        Laravel and other dependencies © their respective owners.
     </footer>
 </body>
 </html>
