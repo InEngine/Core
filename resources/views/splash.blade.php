@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>InEngine Core</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=syne:600,700,800|ibm-plex-sans:400,500" rel="stylesheet">
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    <link href="https://fonts.bunny.net/css?family=bricolage-grotesque:700,800|ibm-plex-sans:400,500" rel="stylesheet">
     <style>
         :root {
+            /* EIG / InEngine mark: orange #F17833 on white, set against deep ink blue */
             --ink: #0c1222;
             --fog: #e8eef7;
-            --accent: #3d8bfd;
+            --brand: #F17833;
+            --brand-light: #ff914d; /* brighter orange hover */
+            --blue: #3d8bfd;
+            --deep: #070b14; /* top of splash gradient */
             --muted: #8b9bb8;
         }
 
@@ -34,18 +35,47 @@
         }
 
         main {
-            width: min(40rem, 100%);
+            /* Wide enough that “InEngine Core” stays one line at display size */
+            width: min(48rem, 100%);
             text-align: center;
         }
 
+        footer {
+            position: absolute;
+            bottom: 1.5rem;
+            text-align: center;
+            font-size: 10pt;
+            width: 95%;
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+        }
+
+        .brand-wrap {
+            margin: 0 0 1.25rem;
+            animation: fade-in 700ms ease-out both;
+        }
+
+        .logo {
+            display: block;
+            width: min(11rem, 42vw);
+            height: auto;
+            margin: 0 auto 1.1rem;
+            border-radius: 0.35rem;
+            box-shadow: 0 12px 40px rgba(241, 120, 51, 0.22);
+        }
+
         .brand {
-            font-family: Syne, ui-sans-serif, system-ui, sans-serif;
+            display: inline-block;
+            /* Bricolage: Syne’s bold g has a flat-bottomed descender that reads as clipped */
+            font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
             font-weight: 800;
-            font-size: clamp(2.75rem, 8vw, 4.25rem);
-            letter-spacing: -0.04em;
-            line-height: 0.95;
-            margin: 0 0 1rem;
-            animation: rise 700ms ease-out both;
+            font-size: 3.75rem;
+            letter-spacing: 0.06em;
+            line-height: 1.35;
+            margin: 0;
+            padding: 0.1em 0.05em 0.22em;
+            overflow: visible;
+            white-space: nowrap;
         }
 
         .lede {
@@ -54,7 +84,7 @@
             font-size: 1.05rem;
             line-height: 1.55;
             color: var(--muted);
-            animation: rise 700ms ease-out 120ms both;
+            animation: fade-in 700ms ease-out 120ms both;
         }
 
         .lede strong {
@@ -67,7 +97,7 @@
             flex-wrap: wrap;
             gap: 0.75rem;
             justify-content: center;
-            animation: rise 700ms ease-out 220ms both;
+            animation: fade-in 700ms ease-out 220ms both;
         }
 
         .actions a {
@@ -76,11 +106,16 @@
             justify-content: center;
             min-height: 2.75rem;
             padding: 0 1.15rem;
+            border: 1px solid transparent;
             border-radius: 0.55rem;
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+            transition:
+                transform 160ms ease,
+                background-color 160ms ease,
+                border-color 160ms ease,
+                color 160ms ease;
         }
 
         .actions a:hover {
@@ -88,54 +123,66 @@
         }
 
         .actions a.primary {
-            background: var(--accent);
-            color: #04101f;
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
         }
 
         .actions a.primary:hover {
-            background: #5a9fff;
+            background: var(--brand-light);
+            border-color: var(--brand-light);
+            color: #fff;
         }
 
         .actions a.ghost {
-            border: 1px solid rgba(232, 238, 247, 0.22);
-            color: var(--fog);
+            border-color: rgba(232, 238, 247, 0.28);
+            color: var(--muted);
             background: rgba(255, 255, 255, 0.03);
         }
 
+        /* Stay secondary: brighter edge + soft wash — never solid orange */
         .actions a.ghost:hover {
-            border-color: rgba(232, 238, 247, 0.45);
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(232, 238, 247, 0.55);
+            color: #fff;
         }
 
-        @keyframes rise {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .brand, .lede, .actions { animation: none; }
+            .brand-wrap, .lede, .actions { animation: none; }
             .actions a { transition: none; }
         }
     </style>
 </head>
 <body>
     <main>
-        <h1 class="brand">InEngine Core</h1>
+        <div class="brand-wrap">
+            <img
+                class="logo"
+                src="{{ asset('images/inengine-logo.svg') }}"
+                width="800"
+                height="496"
+                alt="InEngine"
+            >
+            <h1 class="brand">InEngine</h1>
+        </div>
         <p class="lede">
-            Built on <strong>Laravel</strong>. Modular host for Modulus-compatible products and packages.
+            Built on <strong>Laravel</strong>, InEngine is an opinionated and modular web application framework paired with the powerful Modulus module system.
         </p>
         <div class="actions">
             <a class="primary" href="https://github.com/InEngine/Core">GitHub</a>
-            {{-- Marketing site URL once public; local Herd also serves https://inengine.app --}}
-            <a class="ghost" href="https://inengine.app">Website</a>
+            <a class="ghost" href="https://inengine.io">Website</a>
+            <a class="ghost" href="https://inengine.io/documentation">Documentation</a>
             <a class="ghost" href="https://github.com/InEngine/Modulus">Modulus</a>
         </div>
     </main>
+    <footer>
+        InEngine is copyrighted by Excellent InGenuity LLC 2026.<br />
+        Laravel and all other packages used by InEngine are the copyrighted property of their respective owners.
+    </footer>
 </body>
 </html>
