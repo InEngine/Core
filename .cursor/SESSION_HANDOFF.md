@@ -21,9 +21,9 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 
 **Local modules:** `composer.local.dist.json` → `composer.local.json` (gitignored). Path repos `../Modules/*` live only in composer.local (merge plugin). Core **requires** `inengine/modulus` `*@dev` in `composer.json`; resolution is local-path via composer.local — no GitHub VCS/token. CI writes path `Modules/*` into `composer.local.json`.
 
-**Herd:** https://inengine.app  
+**Herd:** https://inengine.app → this Core tree. See **`docs/local-modules.md`** for path modules **and** the **local host playground** (gitignored `routes/local.php`, `LocalServiceProvider`, `database/migrations/local/`, `storage/modulus/`) so agents can test migrations / UI / routes on Herd **without committing or pushing Core scratch**. Real product code → `Modules/*` repos.
 
-**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, ModulusComposer, Skeleton, TableUI, Documentation.
+**PHPStorm:** Open `InEngine/Core`. Content roots include Alert, Calendar, GoogleCalendarAdapter, Modulus, ModulusComposer, Skeleton, TableUI, ModulusUI, User, identity/auth modules, Documentation.
 
 **Cursor handoffs:** Every level above has `.cursor/SESSION_HANDOFF.md` (+ `session-handoff` rule). When switching roots, read that repo’s handoff.
 
@@ -46,6 +46,14 @@ Use this file so new chats pick up **what we did last**, **what’s next**, and 
 ```
 
 <!-- SESSION_LOG_START -->
+
+### 2026-11-24 — Identity foundation + local Herd playground
+
+- **Branch:** `dev`
+- **Done (identity — see User handoff):** Contracts (library, private, path-only), User + Auth-Local foundations, Modulus library always-on + ModuleExtensionGate, Modulus-UI scaffold wired, CI green on worked-on repos.
+- **Done (Core local Herd):** Documented + wired gitignored host playground (`docs/local-modules.md`, stubs under `stubs/local-host/`, `AppServiceProvider` loads optional local routes/provider/migrations). `storage/modulus/` gitignored.
+- **Next:** Person → Auth-Google/Github → Modulus-UI real UI → Auth-*-UI; use Herd playground to exercise enable/migrate/routes without pushing Core experiments.
+- **Do not:** Commit `composer.local.json`, `routes/local.php`, `LocalServiceProvider.php`, or `storage/modulus/*` to Core.
 
 ### 2026-11-21 — Step 14 Capability Registry in progress
 

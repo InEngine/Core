@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Copy to routes/local.php (gitignored).
+ *
+ * Scratch web routes for Herd (https://inengine.app) while testing modules.
+ * Prefer shipping real routes from the module ServiceProvider / routes file.
+ */
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/local/ping', function () {
+    return response()->json([
+        'ok' => true,
+        'modulus' => class_exists(\InEngine\Modulus\Facades\Modulus::class),
+    ]);
+})->name('local.ping');

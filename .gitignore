@@ -30,3 +30,10 @@ composer.local.json
 composer.local.dist.json
 composer.lock
 /Modules/*
+
+# Local Herd host playground (never commit — see docs/local-modules.md)
+/routes/local.php
+/app/Providers/LocalServiceProvider.php
+/database/migrations/local/
+/resources/views/local/
+/storage/modulus/

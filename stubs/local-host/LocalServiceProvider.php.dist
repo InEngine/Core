@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+/**
+ * Copy to app/Providers/LocalServiceProvider.php (gitignored).
+ *
+ * Use for Herd-only host wiring while developing modules — bindings, View::addNamespace,
+ * gate checks, etc. Prefer putting real product routes/UI in the module package.
+ */
+class LocalServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        //
+    }
+
+    public function boot(): void
+    {
+        //
+    }
+}
