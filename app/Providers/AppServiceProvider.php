@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Optional gitignored host scratch — see docs/local-modules.md
         if (is_file(app_path('Providers/LocalServiceProvider.php'))) {
-            $this->app->register(\App\Providers\LocalServiceProvider::class);
+            $this->app->register(LocalServiceProvider::class);
         }
     }
 
